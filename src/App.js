@@ -7,6 +7,17 @@ import Login from "./Components/Login";
 import Setting from "./Components/Setting";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import ManageProfile from "./Components/Employee/ManageProfile";
+import ContactInfo from "./Components/Employee/ContactInfo";
+import PersonalInfo from "./Components/Employee/PersonalInfo";
+import Academic from "./Components/Employee/Academic";
+import Professional from "./Components/Employee/Professional";
+import Experience from "./Components/Employee/Experience";
+import PendingRequest from "./Components/Evaluation/PendingRequest";
+import PendingStatus from "./Components/Evaluation/PendingStatus";
+import EmployeeEvaluation from "./Components/Evaluation/EmployeeEvaluation";
+import Finance from "./Components/Finance/Finance";
+import Resign from "./Components/Resign/Resign";
+import HoursEntry from "./Components/HoursEntry/HoursEntry";
 function App() {
 	return (
 		<BrowserRouter>
@@ -15,7 +26,24 @@ function App() {
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route path="settings" element={<Setting />} />
-						<Route path="manage-profile" element={<ManageProfile />} />
+						<Route
+							path="manage-profile"
+							element={<ManageProfile />}
+						/>
+						<Route path="contact-info" element={<ContactInfo />} />
+						<Route
+							path="personal-info"
+							element={<PersonalInfo />}
+						/>
+						<Route path="academic" element={<Academic />} />
+						<Route path="professional" element={<Professional />} />
+						<Route path="experience" element={<Experience />} />
+						<Route path="pending-request" element={<PendingRequest />} />
+						<Route path="pending-status" element={<PendingStatus />} />
+						<Route path="employee-evaluation" element={<EmployeeEvaluation />} />
+						<Route path="finance" element={<Finance />} />
+						<Route path="resign" element={<Resign />} />
+						<Route path="hours-entry" element={<HoursEntry />} />
 
 						{/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
@@ -27,6 +55,5 @@ function App() {
 		</BrowserRouter>
 	);
 }
-
 
 export default App;

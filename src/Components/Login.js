@@ -15,7 +15,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import loginService from "../services/login.service";
 const Login = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [rememberUser, setRememberUser] = useState(false);
 	const [userEmail, setUserEmail] = useState("");
 	const [userPassword, setUserPassword] = useState("");
@@ -28,11 +27,9 @@ const Login = () => {
 			password : userPassword,
 			rememberMe : rememberUser,
 		}
-		let lg = loginService.getLogingStatus();
-		if (lg) {
-			navigate("/home");
+		if (loginService.logIn(user)) {
+			navigate("/");
 		}
-		setIsLoggedIn(lg);
 		setUserEmail("");
 		setUserPassword("");
 	};

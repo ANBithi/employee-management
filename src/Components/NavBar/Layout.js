@@ -1,5 +1,6 @@
 import {
 	Image,
+	Avatar,
 	Flex,
 	Button,
 	HStack,
@@ -10,12 +11,18 @@ import {
 } from "@chakra-ui/react";
 //import Logo from '../public/logo.svg';
 import React from "react";
+import loginService from "../../services/login.service";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { DATA } from "./navigationData";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 const CTA = "Get Started";
 
 export default function Layout() {
+	const navigate = useNavigate();
+	const onLogoutClick = () => {
+		loginService.logOff();
+		navigate("/login");
+	}
 	return (
 		<div>
 			<Flex
@@ -33,9 +40,7 @@ export default function Layout() {
 						<HStack>
 							{item.subMenu ? (
 								<Menu>
-									<Button variant="nav">
-										{item.label}
-									</Button>
+									<Button variant="nav">{item.label}</Button>
 									<MenuButton
 										style={{ marginInlineStart: "-2rem" }}
 										marginInlineStart
@@ -58,18 +63,34 @@ export default function Layout() {
 								</Menu>
 							) : (
 								<Link key={i} to={item.link}>
-									<Button variant="nav">
-										{item.label}
-									</Button>
+									<Button variant="nav">{item.label}</Button>
 								</Link>
 							)}
 						</HStack>
 					))}
 				</HStack>
 				<HStack>
-					<Button w="full" bg="primary.900">
-						{CTA}
-					</Button>
+					<Menu>
+						<MenuButton
+							style={{ marginInlineStart: "-2rem" }}
+							marginInlineStart
+							m={0}
+							as={Button}
+							variant="nav"
+						>
+							<Avatar
+								size="sm"
+								name="Oshigaki Kisame"
+								src="https://bit.ly/broken-link"
+							/>
+						</MenuButton>
+						<MenuList>
+							<MenuItem>
+								<Link to="/settings">Settings</Link>
+							</MenuItem>
+							<MenuItem onClick={onLogoutClick}>Logout</MenuItem>
+						</MenuList>
+					</Menu>
 				</HStack>
 			</Flex>
 

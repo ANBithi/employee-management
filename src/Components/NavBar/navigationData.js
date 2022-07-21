@@ -47,7 +47,7 @@ const DATA = [
 				link: "/pending-status",
 			},
             {
-                label: "Employee evaluation",
+                label: "Employee Evaluation",
                 link: "/employee-evaluation"
             },
 		],
@@ -56,13 +56,13 @@ const DATA = [
 		label: "Finance",
 		link: "/finance",
 	},
-    {
-		label: "Resign",
-		link: "/resign",
+	{
+		label: "Hours Entry",
+		link: "/hours-entry",
 	},
 	{
-		label: "Settings",
-		link: "/settings",
+		label: "Resign",
+		link: "/resign",
 	},
 ];
 
