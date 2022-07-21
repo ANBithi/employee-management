@@ -23,7 +23,12 @@ const Login = () => {
 	const onSignIn = (e) => {
 		e.preventDefault();
 		//alert(`Email: ${userEmail} & Password: ${userPassword}`);
-		let lg = loginService.getLogingStatus(userEmail, userPassword);
+		let user = {
+			email : userEmail,
+			password : userPassword,
+			rememberMe : rememberUser,
+		}
+		let lg = loginService.getLogingStatus();
 		if (lg) {
 			navigate("/home");
 		}

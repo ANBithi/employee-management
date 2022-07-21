@@ -1,11 +1,18 @@
-import {
-} from "@chakra-ui/react";
-import Nav from "./NavBar/Nav";
+import { Box, Button, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Home = () =>{
     return(
-    <Nav></Nav>
+       <div>
+        <p>
+        xvhhsgdushdsikcskxcnxkcnx
+        csxcnsjchsjxcbxjcx
+        cxncxjcxjncjdsc
+        xcnxncxjncjxcnxc
+        xcnxjcnudgfdyftydfgydhgvd
+        fdjfdhufh
+        </p>
+       </div>
     )
 }
 export default Home;
