@@ -1,9 +1,9 @@
-import { Box, Button, Center } from "@chakra-ui/react";
+import { Box, Button, Center, Container } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Home = () =>{
     return(
-       <div>
+       <Container h = "full" w = "full">
         <p>
         xvhhsgdushdsikcskxcnxkcnx
         csxcnsjchsjxcbxjcx
@@ -12,7 +12,7 @@ const Home = () =>{
         xcnxjcnudgfdyftydfgydhgvd
         fdjfdhufh
         </p>
-       </div>
+       </Container>
     )
 }
 export default Home;

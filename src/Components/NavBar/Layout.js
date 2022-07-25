@@ -1,5 +1,4 @@
 import {
-	Image,
 	Avatar,
 	Flex,
 	Button,
@@ -10,21 +9,31 @@ import {
 	MenuButton,
 } from "@chakra-ui/react";
 //import Logo from '../public/logo.svg';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import loginService from "../../services/login.service";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { DATA } from "./navigationData";
 import { Outlet, Link, useNavigate } from "react-router-dom";
-const CTA = "Get Started";
 
 export default function Layout() {
 	const navigate = useNavigate();
+	const [userData, setUserData] = useState();
+
+	useEffect(()=>{
+		setUserData(JSON.parse(localStorage.getItem("userDetails")));
+	}, [])
+	
 	const onLogoutClick = () => {
 		loginService.logOff();
 		navigate("/login");
-	}
+	};
 	return (
-		<div>
+		<div
+			style={{
+				height: "100vh",
+				overflow: "hidden",
+			}}
+		>
 			<Flex
 				w="100%"
 				px="6"
@@ -40,20 +49,20 @@ export default function Layout() {
 						<HStack>
 							{item.subMenu ? (
 								<Menu>
-									<Button variant="nav">{item.label}</Button>
 									<MenuButton
 										style={{ marginInlineStart: "-2rem" }}
-										marginInlineStart
 										m={0}
 										as={Button}
 										variant="nav"
 										rightIcon={<ChevronDownIcon />}
-									/>
+									>
+										{item.label}
+										</MenuButton>
 									<MenuList>
 										{item.subMenu.map((menu, index) => {
 											return (
 												<MenuItem key={index}>
-													<Link to={menu.link}>
+													<Link to={menu.link} style = {{width : "100%"}}>
 														{menu.label}
 													</Link>
 												</MenuItem>
@@ -73,16 +82,16 @@ export default function Layout() {
 					<Menu>
 						<MenuButton
 							style={{ marginInlineStart: "-2rem" }}
-							marginInlineStart
 							m={0}
 							as={Button}
 							variant="nav"
 						>
 							<Avatar
 								size="sm"
-								name="Oshigaki Kisame"
+								name={`${userData?.firstName} ${userData?.lastName}`}
 								src="https://bit.ly/broken-link"
 							/>
+							
 						</MenuButton>
 						<MenuList>
 							<MenuItem>
@@ -93,8 +102,6 @@ export default function Layout() {
 					</Menu>
 				</HStack>
 			</Flex>
-
-			<hr />
 
 			{/* An <Outlet> renders whatever child route is currently active,
 			so you can think about this <Outlet> as a placeholder for

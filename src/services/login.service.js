@@ -9,7 +9,16 @@ function logOff() {
 
 function logIn(user) {
     localStorage.setItem("loging-status", true);
-    return true;
+    return {
+      success: true,
+      user : {
+        firstName: "Bithi",
+        lastName: "Hossain",
+        email: "thuru.puru@humail.com",
+        role: "employee",
+        reportsTo: "Shibly"
+      }
+    };
   }
 
 

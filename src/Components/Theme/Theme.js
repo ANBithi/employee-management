@@ -1,18 +1,92 @@
 import {
+	background,
 	extendTheme,
 	theme as base,
 	withDefaultColorScheme,
+	withDefaultSize,
 	withDefaultVariant,
 } from "@chakra-ui/react";
 
+const Input = {
+	baseStyle: {
+		field: {}
+	},
+	variants: {
+		outline: {
+			field: {
+				_hover: {
+					borderColor: "primary.400",
+				},
+				borderColor: "primary.300",
+				_focus: {
+					borderColor: "primary.500",
+					boxShadow: "none",
+				},
+			},
+		},
+	},
+	sizes: {
+		sm: {
+			field: {
+					//
+			}
+		},
+	},
+	defaultProps: {},
+};
+
+const Select = {
+	baseStyle: {
+		field: {
+			
+		}
+	},
+	variants: {
+		outline: {
+		  field: {
+			_hover: {
+				borderColor: 'primary.400',
+			  },
+			borderColor : "primary.300",
+			_focus: {
+			  borderColor: 'primary.500',
+			  boxShadow: 'none',
+			},
+		  },
+		},
+	},
+	sizes: {},
+	defaultProps: {},
+}
 
 const theme = extendTheme(
-	{	  
+	{
 		layerStyles: {
-			flexMarginStyle: {
-				mb : "10%",
-				display : "flex",
-				flexDirection : "row",
+			sectionHeaderStyle: {
+				fontSize: "16px",
+				fontWeight: "Bold",
+			},
+			sectionStyle: {
+				w: "50%",
+				fontSize: "14px",
+				pb: "1%",
+			},
+			pageStyle: { 
+				height: "calc(100% - 80px)", 
+				overflow: "auto",
+				p: '2%',
+				width: '100%'				
+			},
+			pageButtonStyle : {
+				pt : "2%",
+				pb : "2%",
+			},
+			inputStackStyle: {
+				w :"full",
+				pb :".5%"
+			},
+			inputStyle : {
+				w: "70%"
 			}
 		},
 		textStyles: {
@@ -20,9 +94,9 @@ const theme = extendTheme(
 				// you can also use responsive styles
 				fontSize: ["16px", "28px"],
 			},
-			smallAndBoldStyle : {
-				fontSize : "12px",
-				fontWeight : "bold"
+			smallAndBoldStyle: {
+				fontSize: "12px",
+				fontWeight: "bold",
 			},
 		},
 		styles: {
@@ -35,7 +109,7 @@ const theme = extendTheme(
 		},
 		colors: {
 			primary: {
-				50:  "#ecf2fb",
+				50: "#ecf2fb",
 				100: "#ced7e3",
 				200: "#afbdce",
 				300: "#90a2bb",
@@ -54,13 +128,9 @@ const theme = extendTheme(
 		},
 
 		components: {
-			Button: {
-				// 1. We can update the base styles
-				baseStyle: {
-				w : "60%"
-				},
+			Input: Input,
+			Select: Select,
 		},
-	}
 	},
 	withDefaultColorScheme({
 		colorScheme: "primary",
@@ -68,6 +138,10 @@ const theme = extendTheme(
 	withDefaultVariant({
 		variant: "outline",
 		components: ["Input"],
+	}),
+	withDefaultSize({
+		size: "sm",
+		components: ["Input", "Select"],
 	})
 );
 
