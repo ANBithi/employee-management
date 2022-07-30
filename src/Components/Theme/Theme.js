@@ -68,13 +68,29 @@ const Select = {
 const theme = extendTheme(
 	{
 		layerStyles: {
+			themeIconStyle: {
+				
+				".chakra-ui-light &": {
+					bg: "transparent",
+					color: "primary.900",
+					_hover: { bg: "primary.100" },
+				},
+				".chakra-ui-dark &": {
+					bg: "transparent",
+					color: "primary.100",
+					_hover: { bg: "primary.700" },
+				},
+			},
 			navbarStyle: {
 				w: "100%",
 				px: "6",
 				py: "5",
 				bg: "primary.100",
 				color: "primary.900",
-				".chakra-ui-dark &": { bg: "primary.700", color : "primary.100" },
+				".chakra-ui-dark &": {
+					bg: "primary.700",
+					color: "primary.100",
+				},
 			},
 			sectionHeaderStyle: {
 				fontSize: "16px",
@@ -92,7 +108,10 @@ const theme = extendTheme(
 				width: "100%",
 				bg: "primary.50",
 				color: "primary.900",
-				".chakra-ui-dark &": { bg: "primary.800", color : "primary.100" },
+				".chakra-ui-dark &": {
+					bg: "primary.800",
+					color: "primary.100",
+				},
 			},
 			pageButtonStyle: {
 				pt: "2%",
@@ -118,8 +137,7 @@ const theme = extendTheme(
 		},
 		styles: {
 			global: {
-				body: {
-				},
+				body: {},
 			},
 		},
 		colors: {
@@ -147,7 +165,7 @@ const theme = extendTheme(
 		},
 	},
 	withDefaultColorScheme({
-		colorScheme: "purple",
+		colorScheme: "blue",
 	}),
 	withDefaultVariant({
 		variant: "outline",
