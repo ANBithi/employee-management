@@ -1,23 +1,23 @@
 import { HStack, Flex, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import employeeService from "../../../services/employee.service";
-import ExperienceForm from "./ExperienceForm";
+import leaveService from "../../../services/leave.service";
+import LeaveApplicationForm from "./LeaveApplicationForm";
 
-const Experience = () => {
-	const [experienceObj, setExperienceObj] = useState({});
+const LeaveApplication = () => {
+	const [leaveApplicationObj, setLeaveApplicationObj] = useState({});
 	const toast = useToast();
 
 	const onSaveClick = () => {
-		let experience = {
-			experience: experienceObj,
+		let leaveApplication = {
+			leaveApplication: leaveApplicationObj,
 		};
-		if (employeeService.saveExperience(experience)) {
+		if (leaveService.saveLeaveApplication(leaveApplication)) {
 			toast({
 				containerStyle: {
 					fontSize: "14px",
 					fontWeight: "normal",
 				},
-				title: "Work Experience Saved.",
+				title: "Leave Application Saved.",
 				position: "bottom-right",
 				variant: "subtle",
 				status: "success",
@@ -28,10 +28,10 @@ const Experience = () => {
 	};
 	return (
 		<Flex layerStyle="pageStyle">
-			<Flex flexDirection="column" w='100%'>
-				<ExperienceForm
-					experienceObj={experienceObj}
-					setExperienceObj={setExperienceObj}
+			<Flex flexDirection="column" w="100%">
+				<LeaveApplicationForm
+					leaveApplicationObj={leaveApplicationObj}
+					setLeaveApplicationObj={setLeaveApplicationObj}
 				/>
 				<HStack layerStyle="pageButtonStyle">
 					<Button fontWeight="normal" onClick={onSaveClick}>
@@ -44,4 +44,4 @@ const Experience = () => {
 		</Flex>
 	);
 };
-export default Experience;
+export default LeaveApplication;

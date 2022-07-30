@@ -1,5 +1,5 @@
 import {
-	background,
+	color,
 	extendTheme,
 	theme as base,
 	withDefaultColorScheme,
@@ -7,6 +7,12 @@ import {
 	withDefaultVariant,
 } from "@chakra-ui/react";
 
+// 2. Add your color mode config
+// const config = {
+//   initialColorMode: 'dark',
+//   useSystemColorMode: false,
+
+// }
 const Input = {
 	baseStyle: {
 		field: {}
@@ -62,6 +68,14 @@ const Select = {
 const theme = extendTheme(
 	{
 		layerStyles: {
+			navbarStyle: {
+				w: "100%",
+				px: "6",
+				py: "5",
+				bg: "primary.100",
+				color: "primary.900",
+				".chakra-ui-dark &": { bg: "primary.700", color : "primary.100" },
+			},
 			sectionHeaderStyle: {
 				fontSize: "16px",
 				fontWeight: "Bold",
@@ -71,23 +85,26 @@ const theme = extendTheme(
 				fontSize: "14px",
 				pb: "1%",
 			},
-			pageStyle: { 
-				height: "calc(100% - 80px)", 
+			pageStyle: {
+				height: "calc(100% - 80px)",
 				overflow: "auto",
-				p: '2%',
-				width: '100%'				
+				p: "2%",
+				width: "100%",
+				bg: "primary.50",
+				color: "primary.900",
+				".chakra-ui-dark &": { bg: "primary.800", color : "primary.100" },
 			},
-			pageButtonStyle : {
-				pt : "2%",
-				pb : "2%",
+			pageButtonStyle: {
+				pt: "2%",
+				pb: "2%",
 			},
 			inputStackStyle: {
-				w :"full",
-				pb :".5%"
+				w: "full",
+				pb: ".5%",
 			},
-			inputStyle : {
-				w: "70%"
-			}
+			inputStyle: {
+				w: "70%",
+			},
 		},
 		textStyles: {
 			buttonTextStyle: {
@@ -102,8 +119,6 @@ const theme = extendTheme(
 		styles: {
 			global: {
 				body: {
-					bg: "primary.50",
-					color: "primary.900",
 				},
 			},
 		},
@@ -121,7 +136,6 @@ const theme = extendTheme(
 				900: "#050c15",
 			},
 		},
-
 		fonts: {
 			heading: `Poppins, ${base.fonts?.heading}`,
 			body: `Poppins, ${base.fonts?.body}`,
@@ -133,7 +147,7 @@ const theme = extendTheme(
 		},
 	},
 	withDefaultColorScheme({
-		colorScheme: "primary",
+		colorScheme: "cyan",
 	}),
 	withDefaultVariant({
 		variant: "outline",

@@ -31,7 +31,7 @@ const Academic = () => {
 		<Flex layerStyle="pageStyle">
 			<Flex  flexDirection="column" w='100%'>
 				<Text layerStyle="sectionHeaderStyle">
-					Academic Information
+					Academic Qualification
 				</Text>
 				<AcademicForm
 					academicObj={academicObj}

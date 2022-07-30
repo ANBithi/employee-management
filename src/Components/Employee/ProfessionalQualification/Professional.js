@@ -7,6 +7,7 @@ const Professional = () => {
 	const [professionalObj, setProfessionalObj] = useState({});
 	const toast = useToast();
 
+
 	const onSaveClick = () => {
 		let qualification = {
 			profession: professionalObj,

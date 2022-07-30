@@ -12,7 +12,7 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 			</Text>
 			{/* employee name input */}
 			<HStack layerStyle="inputStackStyle">
-				<Text w="20%">Employee Name</Text>
+				<Text w="20%">Employee</Text>
 				<Select
 					name="employeeName"
 					w="70%"
@@ -21,7 +21,7 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 			</HStack>
 			{/* employee title input */}
 			<HStack layerStyle="inputStackStyle">
-				<Text w="20%">Employee</Text>
+				<Text w="20%">Employee Name</Text>
 				<Input
 					name="employee"
 					layerStyle="inputStyle"

@@ -1,9 +1,9 @@
-import { Box, Button, Center, Container } from "@chakra-ui/react";
+import { Flex, } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Home = () =>{
     return(
-       <Container h = "full" w = "full">
+       <Flex layerStyle="pageStyle">
         <p>
         xvhhsgdushdsikcskxcnxkcnx
         csxcnsjchsjxcbxjcx
@@ -12,7 +12,7 @@ const Home = () =>{
         xcnxjcnudgfdyftydfgydhgvd
         fdjfdhufh
         </p>
-       </Container>
+       </Flex>
     )
 }
 export default Home;

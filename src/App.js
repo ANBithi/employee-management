@@ -17,6 +17,11 @@ import EmployeeEvaluation from "./Components/Evaluation/EmployeeEvaluation";
 import Finance from "./Components/Finance/Finance";
 import Resign from "./Components/Resign/Resign";
 import HoursEntry from "./Components/HoursEntry/HoursEntry";
+import LeaveApplication from "./Components/Leave/LeaveApplication/LeaveApplication";
+import LeaveDecline from "./Components/Leave/LeaveDecline";
+import LeaveCancel from "./Components/Leave/LeaveCancel";
+import AppliedLeaveStatus from "./Components/Leave/AppliedLeaveStatus";
+import PendingLeaveRequestStatus from "./Components/Leave/PendingLeaveRequestStatus";
 function App() {
 	return (
 		<BrowserRouter>
@@ -43,6 +48,11 @@ function App() {
 						<Route path="finance" element={<Finance />} />
 						<Route path="resign" element={<Resign />} />
 						<Route path="hours-entry" element={<HoursEntry />} />
+						<Route path="leave-application" element={<LeaveApplication />} />
+						<Route path="leave-decline" element={<LeaveDecline />} />
+						<Route path="leave-cancel" element={<LeaveCancel />} />
+						<Route path="applied-leave-status" element={<AppliedLeaveStatus />} />
+						<Route path="pending-leave-request-status" element={<PendingLeaveRequestStatus />} />
 
 						{/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit

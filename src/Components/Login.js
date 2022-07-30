@@ -8,6 +8,8 @@ import {
 	FormControl,
 	FormLabel,
 	Link,
+	useColorModeValue
+
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +18,7 @@ const Login = () => {
 	const [userEmail, setUserEmail] = useState("");
 	const [userPassword, setUserPassword] = useState("");
 	const navigate = useNavigate();
+    const color = useColorModeValue('primary.900', 'primary.100');
 	const onSignIn = (e) => {
 		e.preventDefault();
 		//alert(`Email: ${userEmail} & Password: ${userPassword}`);
@@ -40,7 +43,7 @@ const Login = () => {
 		setUserPassword((prevUserPassword) => (prevUserPassword = value));
 	};
 	return (
-		<Flex h="full" w="full">
+		<Flex h="full" w="full" color = {color}>
 			<VStack h="full" w="50%">
 				<Heading mt="12%">Welcome Back</Heading>
 				<Text fontSize="14px">
@@ -84,7 +87,6 @@ const Login = () => {
 				</Flex>
 				<Button
 					type="submit"
-					bg="primary.900"
 					layerStyle="customButton"
 					onClick={onSignIn}
 					w = "60%"

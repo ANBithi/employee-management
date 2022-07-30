@@ -35,12 +35,8 @@ export default function Layout() {
 			}}
 		>
 			<Flex
-				w="100%"
-				px="6"
-				py="5"
-				align="center"
-				justify="space-between"
-				bg="primary.100"
+				layerStyle="navbarStyle"
+				align="center" justify="space-between"
 			>
 				{/* <Image src={Logo.src} h="50px" /> */}
 
@@ -95,7 +91,7 @@ export default function Layout() {
 						</MenuButton>
 						<MenuList>
 							<MenuItem>
-								<Link to="/settings">Settings</Link>
+								<Link to="/settings" style = {{width: "100%"}}>Settings</Link>
 							</MenuItem>
 							<MenuItem onClick={onLogoutClick}>Logout</MenuItem>
 						</MenuList>

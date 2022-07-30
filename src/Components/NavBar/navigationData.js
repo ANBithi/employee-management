@@ -5,6 +5,32 @@ const DATA = [
         
 	},
 	{
+		label: "Leave",
+		link: "/leave",
+		subMenu: [
+			{
+				label: "Leave Application",
+				link: "/leave-application",
+			},
+			{
+				label: "Leave Decline",
+				link: "/leave-decline",
+			},
+            {
+                label: "Leave Cancel",
+				link: "/leave-cancel",
+            },
+            {
+                label: "Applied Leave Status",
+                link: "/applied-leave-status"
+            },
+            {
+                label: "Pending Leave Request Status",
+                link: "/pending-leave-request-status"
+            },
+		],
+	},
+	{
 		label: "Employee",
 		link: "/employee",
 		subMenu: [

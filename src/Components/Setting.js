@@ -1,18 +1,15 @@
-import {
-    Box
+import { Button, Flex, useColorMode
 } from "@chakra-ui/react";
-import Nav from "./NavBar/Layout";
-import { Link } from "react-router-dom";
+
 
 const Setting = () =>{
+    const {toggleColorMode } = useColorMode();
     return(
-            <div>
-                1111111111111111
-                111111111111111111111111111111111111111111111111111111
-                111111111111111111111111111111111111111111111111
-                11111111111111111111111111111111
-                111111111111111111
-            </div>
+           <Flex layerStyle="pageStyle">
+            <Button onClick={toggleColorMode}>
+                Change Theme
+            </Button>
+           </Flex>
     )
 }
 export default Setting;
