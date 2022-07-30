@@ -147,7 +147,7 @@ const theme = extendTheme(
 		},
 	},
 	withDefaultColorScheme({
-		colorScheme: "cyan",
+		colorScheme: "purple",
 	}),
 	withDefaultVariant({
 		variant: "outline",

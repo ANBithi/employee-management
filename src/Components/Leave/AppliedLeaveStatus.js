@@ -42,10 +42,7 @@ const AppliedLeaveStatus = () => {
                    )
                 })
             }
-            
-            </Grid>
-           
-            
+            </Grid>        
         </VStack>
 		</Flex>
 	);

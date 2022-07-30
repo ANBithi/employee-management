@@ -5,15 +5,13 @@ import {
 	Input,
 	Text,
 	Select,
-	Radio,
-	Box,
-	RadioGroup,
 	CheckboxGroup,
 	Checkbox,
 } from "@chakra-ui/react";
 import { LEAVE_TYPE } from "../leaveData";
 import leaveService from "../../../services/leave.service";
 import { getEndDate, getStartDate, getTotalDays } from "../../util";
+import CustomCalender from "../../CustomCalender";
 const LeaveApplicationForm = ({
 	leaveApplicationObj,
 	setLeaveApplicationObj,
@@ -30,7 +28,7 @@ const LeaveApplicationForm = ({
 		firstHalf: false,
 		secondHalf: false,
 	});
-
+	const [selectedDates, setSelectedDates] = useState([new Date()]);
 	useEffect(() => {
 		setSupervisors(leaveService.getSupervisors());
 	}, []);
@@ -42,7 +40,7 @@ const LeaveApplicationForm = ({
 		setIsSecondHalf((prevVal) => (prevVal = date.secondHalf));
 		setDateData(date);
 
-		var newObj = { ...leaveApplicationObj, leaveDate: date };
+		var newObj = { ...leaveApplicationObj, leaveData: date };
 		setLeaveApplicationObj(newObj);
 	};
 
@@ -51,18 +49,22 @@ const LeaveApplicationForm = ({
 		var date = { ...dateData, [name]: checked };
 		setIsHalfDay((prevVal) => (prevVal = checked));
 		setDateData(date);
-
-		var newObj = { ...leaveApplicationObj, leaveDate: date };
+		var newObj = { ...leaveApplicationObj, leaveData: date };
 		setLeaveApplicationObj(newObj);
 	};
 
-	const onFromDateChange = (e) => {
+	const onDateChange = (e) => {
 		let { value, name } = e.target;
 
-		var date = { ...dateData, [name]: value };
-
+		let date = { ...dateData, [name]: value };
+		let selDate = [];
+		if(date.startDate)
+		{
+			selDate.push(new Date(date.startDate));
+		}
 		if (date.endDate && date.startDate) {
 			date.totalDays = getTotalDays(date.endDate, date.startDate);
+			selDate.push(new Date(date.endDate));
 		}
 		if (date.startDate && date.totalDays) {
 			date.endDate = getEndDate(date.startDate, date.totalDays);
@@ -71,19 +73,17 @@ const LeaveApplicationForm = ({
 			date.startDate = getStartDate(date.endDate, date.totalDays);
 		}
 		setDateData(date);
-
-		var newObj = { ...leaveApplicationObj, leaveDate: date };
+		setSelectedDates(selDate);
+		var newObj = { ...leaveApplicationObj, leaveData: date };
 		setLeaveApplicationObj(newObj);
 	};
 	const onLeaveApplicationChange = (e) => {
 		let { value, name } = e.target;
-		if (name === "supervisor") {
-			console.log(value);
-		}
 		var newObj = { ...leaveApplicationObj, [name]: value };
 		setLeaveApplicationObj(newObj);
 	};
 	return (
+		<HStack>
 		<VStack layerStyle="sectionStyle" align="start">
 			<Text layerStyle="sectionHeaderStyle">Leave Application</Text>
 			{/* leave type input */}
@@ -112,7 +112,7 @@ const LeaveApplicationForm = ({
 					layerStyle="inputStyle"
 					type="date"
 					value={dateData.startDate}
-					onChange={onFromDateChange}
+					onChange={onDateChange}
 				/>
 			</HStack>
 			{/* days input */}
@@ -122,7 +122,7 @@ const LeaveApplicationForm = ({
 					name="totalDays"
 					value={dateData.totalDays}
 					layerStyle="inputStyle"
-					onChange={onFromDateChange}
+					onChange={onDateChange}
 				/>
 			</HStack>
 			{/* to date input */}
@@ -133,7 +133,7 @@ const LeaveApplicationForm = ({
 					value={dateData.endDate}
 					layerStyle="inputStyle"
 					type="date"
-					onChange={onFromDateChange}
+					onChange={onDateChange}
 				/>
 			</HStack>
 			<HStack w="55%" alignSelf="center" justify="space-between">
@@ -184,7 +184,7 @@ const LeaveApplicationForm = ({
 				>
 					{supervisors?.map((supervisor, i) => {
 						return (
-							<option key={i} value={supervisor}>
+							<option key={i} value={supervisor.id}>
 								{supervisor.name}
 							</option>
 						);
@@ -203,6 +203,12 @@ const LeaveApplicationForm = ({
 				/>
 			</HStack>
 		</VStack>
+		<VStack layerStyle="sectionStyle" align="center">
+		<CustomCalender activeStartDate = {(dateData.startDate) ? new Date(dateData.startDate) : new Date()}
+			value = {selectedDates}
+			></CustomCalender>
+		</VStack>
+		</HStack>
 	);
 };
 
