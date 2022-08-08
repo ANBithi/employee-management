@@ -17,7 +17,7 @@ let data = [{
     numberOfDays: 1,
 },
 {
-    employeeName : "Shibly",
+    employeeName : "KK Miller",
     supervisorName : "Balam",
     reason: "Fever.",
     startDate: "14/07/22",

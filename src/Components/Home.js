@@ -1,7 +1,7 @@
 import { Flex, } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-const Home = () =>{
+const Home = () =>{    
     return(
        <Flex layerStyle="pageStyle">
         <p>

@@ -11,6 +11,7 @@ const ManageProfile = () => {
 		let profile = {
 			manageProfile: manageProfileObj,
 		};
+		console.log(profile);
 		if (employeeService.updateManageProfile(profile)) {
 			toast({
 				containerStyle: {

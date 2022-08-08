@@ -1,5 +1,9 @@
 import { HStack, VStack, Input, Text } from "@chakra-ui/react";
-const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
+import { useState } from "react";
+const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj, defaultValues}) => {	
+	
+	
+	
 	const onCurrentAddressChange = (e) => {
 		let { value, name } = e.target;
 		var newObj = { ...currentAddressObj, [name]: value };
@@ -14,6 +18,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="address"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.address}
 					placeholder="Address"
 					onChange={onCurrentAddressChange}
 				/>
@@ -24,6 +29,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="city"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.city}
 					placeholder="City"
 					onChange={onCurrentAddressChange}
 				/>
@@ -34,6 +40,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="zip"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.zip}
 					placeholder="ZIP"
                     type = "number"
 					onChange={onCurrentAddressChange}
@@ -45,6 +52,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="mobile"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.mobile}
 					placeholder="Mobile"
 					type="number"
 					onChange={onCurrentAddressChange}
@@ -56,6 +64,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="phone"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.phone}
 					placeholder="Phone"
 					type="number"
 					onChange={onCurrentAddressChange}
@@ -67,6 +76,7 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 				<Input
 					name="email"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.email}
 					placeholder="Email"
 					type="email"
 					onChange={onCurrentAddressChange}
@@ -76,8 +86,9 @@ const CurrentAddress = ({ currentAddressObj, setCurrentAddressObj }) => {
 			<HStack layerStyle="inputStackStyle">
 				<Text w="20%">Alternate Email</Text>
 				<Input
-					name="altEmail"
+					name="alternateEmail"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.alternateEmail}
 					placeholder="Alternate email"
 					type="email"
 					onChange={onCurrentAddressChange}

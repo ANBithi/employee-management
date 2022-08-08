@@ -1,5 +1,5 @@
 import { HStack, VStack, Input, Text } from "@chakra-ui/react";
-const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj }) => {
+const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj, defaultValues}) => {
 	const onPermanentAddressChange = (e) => {
 		let { value, name } = e.target;
 		var newObj = { ...permanentAddressObj, [name]: value };
@@ -13,6 +13,7 @@ const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj }) => {
 				<Text w="20%">Address</Text>
 				<Input
 					name="address"
+					defaultValue={defaultValues?.address}
 					layerStyle="inputStyle"
 					placeholder="Address"
 					onChange={onPermanentAddressChange}
@@ -23,6 +24,7 @@ const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj }) => {
 				<Text w="20%">Upazilla</Text>
 				<Input
 					name="upazilla"
+					defaultValue={defaultValues?.upazilla}
 					layerStyle="inputStyle"
 					placeholder="Upazilla"
 					onChange={onPermanentAddressChange}
@@ -33,6 +35,7 @@ const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj }) => {
 				<Text w="20%">District</Text>
 				<Input
 					name="district"
+					defaultValue={defaultValues?.district}
 					layerStyle="inputStyle"
 					placeholder="District"
 					onChange={onPermanentAddressChange}
@@ -44,6 +47,7 @@ const PermanentAddress = ({ permanentAddressObj, setPermanentAddressObj }) => {
 				<Input
 					name="phone"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.phone}
 					placeholder="Phone"
 					type="number"
 					onChange={onPermanentAddressChange}

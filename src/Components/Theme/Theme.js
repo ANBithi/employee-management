@@ -1,5 +1,4 @@
 import {
-	color,
 	extendTheme,
 	theme as base,
 	withDefaultColorScheme,

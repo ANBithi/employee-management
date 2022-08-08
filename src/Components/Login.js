@@ -8,8 +8,8 @@ import {
 	FormControl,
 	FormLabel,
 	Link,
-	useColorModeValue
-
+	useColorModeValue,
+	useToast
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ const Login = () => {
 	const [userPassword, setUserPassword] = useState("");
 	const navigate = useNavigate();
     const color = useColorModeValue('primary.900', 'primary.100');
+	const toast = useToast();
 	const onSignIn = (e) => {
 		e.preventDefault();
 		//alert(`Email: ${userEmail} & Password: ${userPassword}`);
@@ -26,13 +27,27 @@ const Login = () => {
 			email : userEmail,
 			password : userPassword,
 		}
-		var auth = loginService.logIn(user); 
-		if (auth.success === true) {
-			localStorage.setItem("userDetails", JSON.stringify(auth.user));
+		loginService.logIn(user).then((data) => {
+         	if (data?.success === true) {
+			localStorage.setItem("userDetails", JSON.stringify(data.user));
+			localStorage.setItem("loggedIn-status", JSON.stringify(data.success));
 			navigate("/");
 		}
-		setUserEmail("");
-		setUserPassword("");
+		else {
+		   toast({
+			containerStyle: {
+				fontSize: "14px",
+				fontWeight: "normal",
+			},
+			title: data.message,
+			position: "bottom-right",
+			variant: "subtle",
+			status: "error",
+			duration: 1000,
+			isClosable: true,
+		});
+		}
+		});
 	};
 	const onEmailInputChange = (e) => {
 		let value = e.target.value;

@@ -1,10 +1,17 @@
 import { HStack, VStack, Input, Text } from "@chakra-ui/react";
-const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
+import { useEffect, useState } from "react";
+import employeeService from "../../../services/employee.service";
+const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj, defaultValues }) => {
+	
+	const [isPageLoaded, setIsPageLoaded] = useState(false);
+
+
 	const onEmergencyContactChange = (e) => {
 		let { value, name } = e.target;
 		var newObj = { ...emergencyContactObj, [name]: value };
 		setEmergencyContactObj(newObj);
 	};
+
 	return (
 		<VStack layerStyle="sectionStyle" align = "start">
             <Text layerStyle= "sectionHeaderStyle">Emergency Contact</Text>
@@ -14,6 +21,7 @@ const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
 				<Input
 					name="name"
 					layerStyle="inputStyle"
+					defaultValue={defaultValues?.name}
 					placeholder="Name"
 					onChange={onEmergencyContactChange}
 				/>
@@ -23,6 +31,7 @@ const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
 				<Text w="20%">Relation</Text>
 				<Input
 					name="relation"
+					defaultValue={defaultValues?.relation}
 					layerStyle="inputStyle"
 					placeholder="Relation"
 					onChange={onEmergencyContactChange}
@@ -33,6 +42,7 @@ const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
 				<Text w="20%">Address</Text>
 				<Input
 					name="address"
+					defaultValue={defaultValues?.address}
 					layerStyle="inputStyle"
 					placeholder="Address"
 					onChange={onEmergencyContactChange}
@@ -45,6 +55,7 @@ const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
 					name="mobile"
 					layerStyle="inputStyle"
 					placeholder="Mobile"
+					defaultValue={defaultValues?.mobile}
 					type="number"
 					onChange={onEmergencyContactChange}
 				/>
@@ -54,6 +65,7 @@ const EmergencyContact = ({ emergencyContactObj, setEmergencyContactObj }) => {
 				<Text w="20%">Email</Text>
 				<Input
 					name="email"
+					defaultValue={defaultValues?.email}
 					layerStyle="inputStyle"
 					placeholder="Email"
 					type="email"
