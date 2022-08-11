@@ -8,23 +8,22 @@ const LeaveApplication = () => {
 	const toast = useToast();
 
 	const onSaveClick = () => {
-		let leaveApplication = {
-			leaveApplication: leaveApplicationObj,
-		};
-		if (leaveService.saveLeaveApplication(leaveApplication)) {
-			toast({
-				containerStyle: {
-					fontSize: "14px",
-					fontWeight: "normal",
-				},
-				title: "Leave Application Saved.",
-				position: "bottom-right",
-				variant: "subtle",
-				status: "success",
-				duration: 1000,
-				isClosable: true,
-			});
-		}
+		leaveService.applyLeave(leaveApplicationObj).then(d => {
+			if(d === true) {
+				toast({
+					containerStyle: {
+						fontSize: "14px",
+						fontWeight: "normal",
+					},
+					title: "Leave Application Saved.",
+					position: "bottom-right",
+					variant: "subtle",
+					status: "success",
+					duration: 1000,
+					isClosable: true,
+				});
+			}
+		})		
 	};
 	return (
 		<Flex layerStyle="pageStyle">

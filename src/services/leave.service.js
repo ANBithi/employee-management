@@ -1,31 +1,42 @@
-function getSupervisors(){
-    let supervisors = [{ name: "Amin", id: "12320ed2h3" }];
-      
-    return supervisors
+import { getCurrentUser, getCurrentUserId } from "../Helpers/userHelper";
+
+async function getSupervisors() {
+	let response = await fetch("http://localhost:5000/api/user/getAll", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+	});
+	if (response.ok) {
+		let allUsers = await response.json();
+		return allUsers;
+	}
 }
-function saveLeaveApplication(leaveApplication){
-return true;
+async function applyLeave(leaveApplication) {
+	const { leaveData, leaveType, supervisor, reason } = leaveApplication;
+    
+
+	let request = { ...leaveData, leaveType, supervisor,reason , belongsTo: getCurrentUserId() };
+    console.log(request);
+	let response = await fetch("http://localhost:5000/api/leave/apply", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(request),
+	});
+	if (response.ok) {
+		return await response.json();
+	}
 }
 
-function getAppliedLeaveStatusData(){
-let data = [{
-    employeeName : "Bithi",
-    supervisorName : "Amin",
-    reason: "Headache.",
-    startDate: "12/07/22",
-    endDate: "13/07/22",
-    numberOfDays: 1,
-},
-{
-    employeeName : "KK Miller",
-    supervisorName : "Balam",
-    reason: "Fever.",
-    startDate: "14/07/22",
-    endDate: "16/07/22",
-    numberOfDays: 2,
-}];
-return data
+async function getAppliedLeaveStatusData() {
+    let belongsTo = getCurrentUserId();
+      let response =  await fetch(`http://localhost:5000/api/leave/appliedStatus?belongsTo=${belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		let JsonResponse = await response.json(); 
+		return JsonResponse;
+		}    
 }
 
-const leaveService = {getSupervisors, saveLeaveApplication,getAppliedLeaveStatusData}
+const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatusData };
 export default leaveService;

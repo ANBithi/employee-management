@@ -1,5 +1,20 @@
 import { HStack, VStack, Input, Text, Select} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { getCurrentUser } from "../../../Helpers/userHelper";
 const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
+	const [defaultValues, setDefaultValues] = useState();
+
+	useEffect(()=>{
+		let user = getCurrentUser();
+		let manageUser = {
+			employeeName : `${user.firstName} ${user.lastName}`,
+			designation : user.designation,
+			profileStatus : user.profileStatus,
+		};
+		console.log(manageUser);
+		setDefaultValues(manageUser);
+	}, [])
+
 	const onManageProfileChange = (e) => {
 		let { value, name } = e.target;
 		var newObj = { ...manageProfileObj, [name]: value };
@@ -10,20 +25,22 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 			<Text layerStyle="sectionHeaderStyle">
 				Manage Profile
 			</Text>
-			{/* employee name input */}
+			{/* designation input */}
 			<HStack layerStyle="inputStackStyle">
-				<Text w="20%">Employee</Text>
-				<Select
-					name="employeeName"
-					w="70%"
-					onChange={onManageProfileChange}
+				<Text w="20%">Designation</Text>
+				<Input
+					name="designation"
+					value={defaultValues?.designation}
+					layerStyle="inputStyle"
+					disabled = "true"
 				/>
 			</HStack>
 			{/* employee title input */}
 			<HStack layerStyle="inputStackStyle">
 				<Text w="20%">Employee Name</Text>
 				<Input
-					name="employee"
+					name="employeeName"
+					defaultValue={defaultValues?.employeeName}
 					layerStyle="inputStyle"
 					onChange={onManageProfileChange}
 				/>
@@ -60,6 +77,7 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 				<Text w="20%">Profile Status</Text>
 				<Input
 					name="profileStatus"
+					defaultValue={defaultValues?.profileStatus}
 					layerStyle="inputStyle"
 					onChange={onManageProfileChange}
 				/>

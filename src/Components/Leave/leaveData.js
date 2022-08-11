@@ -64,6 +64,6 @@ export const APPLIED_LEAVE_COLS = [
     colSpan: 1,},
     {label: "Number Of Days",
     colSpan: 1,},
-    {label: "Cancel",
+    {label: "Day Portion",
     colSpan: 1,},
 ]

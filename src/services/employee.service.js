@@ -30,7 +30,7 @@ async function getEmployeeAddress(type) {
 		headers: {'Content-Type': 'application/json'}		
 	  })
 	  if (response.ok){
-		var addressResponse = await response.json();  
+		let addressResponse = await response.json();  
 		return addressResponse;
 		}    
 }

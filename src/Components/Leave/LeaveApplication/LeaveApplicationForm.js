@@ -6,11 +6,11 @@ import {
 	Text,
 	Select,
 	CheckboxGroup,
-	Checkbox,
+	Checkbox, useToast
 } from "@chakra-ui/react";
 import { LEAVE_TYPE } from "../leaveData";
 import leaveService from "../../../services/leave.service";
-import { getEndDate, getStartDate, getTotalDays } from "../../util";
+import { getEndDate, getStartDate,getTotalDays } from "../../util";
 import CustomCalender from "../../CustomCalender";
 const LeaveApplicationForm = ({
 	leaveApplicationObj,
@@ -29,8 +29,15 @@ const LeaveApplicationForm = ({
 		secondHalf: false,
 	});
 	const [selectedDates, setSelectedDates] = useState([new Date()]);
+	const toast = useToast();
+
+
+
 	useEffect(() => {
-		setSupervisors(leaveService.getSupervisors());
+		leaveService.getSupervisors().then( data => {
+				setSupervisors(data);
+		}
+		)
 	}, []);
 
 	const onHalfDayOptionChange = (e) => {
@@ -62,15 +69,38 @@ const LeaveApplicationForm = ({
 		{
 			selDate.push(new Date(date.startDate));
 		}
+		
 		if (date.endDate && date.startDate) {
-			date.totalDays = getTotalDays(date.endDate, date.startDate);
+			if(date.endDate<date.startDate){
+				toast({
+					containerStyle: {
+						fontSize: "14px",
+						fontWeight: "normal",
+					},
+					title: "End date must be greater than start day.",
+					position: "bottom-right",
+					variant: "subtle",
+					status: "error",
+					duration: 1000,
+					isClosable: true,
+				});
+				return;
+			}
+			date.totalDays = getTotalDays(date.startDate, date.endDate);
+			console.log(date.totalDays);
 			selDate.push(new Date(date.endDate));
 		}
 		if (date.startDate && date.totalDays) {
 			date.endDate = getEndDate(date.startDate, date.totalDays);
 		}
+		if(date.endDate)
+		{
+			selDate[1]=(new Date(date.endDate));
+		}
+
 		if (date.endDate && date.totalDays) {
 			date.startDate = getStartDate(date.endDate, date.totalDays);
+			selDate[0] = (new Date(date.startDate));
 		}
 		setDateData(date);
 		setSelectedDates(selDate);
@@ -120,7 +150,7 @@ const LeaveApplicationForm = ({
 				<Text w="20%">Days</Text>
 				<Input
 					name="totalDays"
-					value={dateData.totalDays}
+					value={dateData?.totalDays}
 					layerStyle="inputStyle"
 					onChange={onDateChange}
 				/>
@@ -185,7 +215,7 @@ const LeaveApplicationForm = ({
 					{supervisors?.map((supervisor, i) => {
 						return (
 							<option key={i} value={supervisor.id}>
-								{supervisor.name}
+								{supervisor.firstName} {supervisor.lastName}
 							</option>
 						);
 					})}

@@ -15,7 +15,7 @@ async function logIn(user) {
   })
 
   if (response.ok){
-    var loginResponse = await response.json();  
+    let loginResponse = await response.json();  
     if (loginResponse.isAuthorized === true){
       return({success: loginResponse.isAuthorized, user : loginResponse.user});  
     }
