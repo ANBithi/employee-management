@@ -26,7 +26,7 @@ async function applyLeave(leaveApplication) {
 	}
 }
 
-async function getAppliedLeaveStatusData() {
+async function getAppliedLeaveStatus() {
     let belongsTo = getCurrentUserId();
       let response =  await fetch(`http://localhost:5000/api/leave/appliedStatus?belongsTo=${belongsTo}`,{
 		method: "GET",
@@ -37,6 +37,31 @@ async function getAppliedLeaveStatusData() {
 		return JsonResponse;
 		}    
 }
+async function getPendingLeaveRequest() {
+    let id = getCurrentUserId();
+      let response =  await fetch(`http://localhost:5000/api/leave/pendingRequest?id=${id}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		let JsonResponse = await response.json(); 
+		return JsonResponse;
+		}    
+}
 
-const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatusData };
+async function changeLeaveStatus(status, id) {
+
+	let request = { status, id };
+    console.log(request);
+	let response = await fetch("http://localhost:5000/api/leave/changeStatus", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(request),
+	});
+	if (response.ok) {
+		return await response.json();
+	}
+}
+
+const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatus, getPendingLeaveRequest,changeLeaveStatus };
 export default leaveService;

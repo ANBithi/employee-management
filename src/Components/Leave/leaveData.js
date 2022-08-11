@@ -1,57 +1,57 @@
 export const LEAVE_TYPE = [
     {
         label: "Annual Leave",
-        value: "annualLeave",
+        value: "Annual Leave",
         totalLeave: 26,
         leftLeave: 0
     },
     {
         //update the leave with accurate data
         label: "Sick Leave",
-        value: "sickLeave",
+        value: "Sick Leave",
         totalLeave: 900,
         leftLeave: 0
     },
     {
         label: "Child Sick Leave",
-        value: "childSickLeave",
+        value: "Child Sick Leave",
         totalLeave: 5,
         leftLeave: 0
     },
     {
         label: "Compassionate Leave",
-        value: "compassionateLeave",
+        value: "Compassionate Leave",
         totalLeave: 3,
         leftLeave: 0
     },
     {
         label: "Maternity Leave",
-        value: "maternityLeave",
+        value: "Maternity Leave",
         totalLeave: 180,
         leftLeave: 0
     },
     {
         label: "Paternity Leave",
-        value: "paternityLeave",
+        value: "Paternity Leave",
         totalLeave: 10,
         leftLeave: 0
     },
     {
         label: "Pilgrimage Leave",
-        value: "pilgrimageLeave",
+        value: "Pilgrimage Leave",
         totalLeave: 40,
         leftLeave: 0
     },
     {
         label: "Moving House",
-        value: "movingHouseLeave",
+        value: "Moving House",
         totalLeave: 1,
         leftLeave: 0
     },
 ]
 
 export const APPLIED_LEAVE_COLS = [
-    {label: "Employee",
+    {label: "Type",
     colSpan: 2 ,
     },
     {label: "Supervisor",
@@ -62,8 +62,27 @@ export const APPLIED_LEAVE_COLS = [
     colSpan: 1,},
     {label: "End Date",
     colSpan: 1,},
-    {label: "Number Of Days",
+    {label: "Days",
     colSpan: 1,},
     {label: "Day Portion",
+    colSpan: 1,},
+    {label: "Status",
+    colSpan: 1,},
+]
+export const PENDING_COLS = [
+    {label: "Employee",
+    colSpan: 1 ,
+    },
+    {label: "Reason",
+    colSpan: 2,},
+    {label: "Start Date",
+    colSpan: 1,},
+    {label: "End Date",
+    colSpan: 1,},
+    {label: "Days",
+    colSpan: 1,},
+    {label: "Day Portion",
+    colSpan: 1,},
+    {label: "Status",
     colSpan: 1,},
 ]

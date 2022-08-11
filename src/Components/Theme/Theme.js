@@ -67,8 +67,23 @@ const Select = {
 const theme = extendTheme(
 	{
 		layerStyles: {
+			gridItemStyle: {
+				fontSize: "14px",
+				p: "3%",
+				bg: "transparent",
+				border: "1px solid",
+				borderColor: "primary.300",
+				borderRadius: "2px",
+				".chakra-ui-light &": {
+					color: "primary.900",
+					_hover: { bg: "primary.100" },
+				},
+				".chakra-ui-dark &": {
+					color: "primary.100",
+					_hover: { bg: "primary.700" },
+				},
+			},
 			themeIconStyle: {
-				
 				".chakra-ui-light &": {
 					bg: "transparent",
 					color: "primary.900",
