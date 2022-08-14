@@ -123,7 +123,7 @@ const PendingModal = ({ isOpen, onClose, currentLeave, onSuccess }) => {
 						)}
 						<HStack>
 							<Text fontWeight="bold">Leave Type:</Text>
-							<Text>{currentLeave?.supervisor}</Text>
+							<Text>{currentLeave?.leaveType}</Text>
 						</HStack>
 						<HStack>
 							<HStack>

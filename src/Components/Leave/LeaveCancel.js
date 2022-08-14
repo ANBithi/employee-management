@@ -120,6 +120,17 @@ const LeaveCancel = () => {
 								</GridItem>
 							)}
 							 
+                           {
+                             data.leaveStatus === 1 ? (
+								<GridItem
+									layerStyle="gridItemStyle"
+									colSpan={1}
+									align="center"
+								>
+									Accepted
+								</GridItem>
+							):
+                             (
 								<GridItem
 									layerStyle="gridItemStyle"
 									colSpan={1}
@@ -127,6 +138,8 @@ const LeaveCancel = () => {
 								>
 									Pending
 								</GridItem>
+							) 
+                           }
 							
 						</Grid>
 					);

@@ -7,16 +7,13 @@ async function getSupervisors() {
 		headers: { "Content-Type": "application/json" },
 	});
 	if (response.ok) {
-		let allUsers = await response.json();
-		return allUsers;
+		let JsonResponse = await response.json(); 
+		return JsonResponse;
 	}
 }
 async function applyLeave(leaveApplication) {
 	const { leaveData, leaveType, supervisor, reason } = leaveApplication;
-    
-
 	let request = { ...leaveData, leaveType, supervisor,reason , belongsTo: getCurrentUserId() };
-    console.log(request);
 	let response = await fetch("http://localhost:5000/api/leave/apply", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },

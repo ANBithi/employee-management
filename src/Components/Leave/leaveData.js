@@ -9,7 +9,7 @@ export const LEAVE_TYPE = [
         //update the leave with accurate data
         label: "Sick Leave",
         value: "Sick Leave",
-        totalLeave: 900,
+        totalLeave: 10,
         leftLeave: 0
     },
     {

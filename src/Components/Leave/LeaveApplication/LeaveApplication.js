@@ -9,16 +9,30 @@ const LeaveApplication = () => {
 
 	const onSaveClick = () => {
 		leaveService.applyLeave(leaveApplicationObj).then(d => {
-			if(d === true) {
+			if(d.response === true) {
 				toast({
 					containerStyle: {
 						fontSize: "14px",
 						fontWeight: "normal",
 					},
-					title: "Leave Application Saved.",
+					title: d.message,
 					position: "bottom-right",
 					variant: "subtle",
 					status: "success",
+					duration: 1000,
+					isClosable: true,
+				});
+			}
+			else {
+				toast({
+					containerStyle: {
+						fontSize: "14px",
+						fontWeight: "normal",
+					},
+					title: d.message,
+					position: "bottom-right",
+					variant: "subtle",
+					status: "error",
 					duration: 1000,
 					isClosable: true,
 				});
