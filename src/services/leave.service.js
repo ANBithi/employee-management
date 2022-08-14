@@ -1,7 +1,8 @@
 import { getCurrentUser, getCurrentUserId } from "../Helpers/userHelper";
 
 async function getSupervisors() {
-	let response = await fetch("http://localhost:5000/api/user/getAll", {
+	let id = getCurrentUserId();
+	let response = await fetch(`http://localhost:5000/api/user/getSupervisors?id=${id}`, {
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
 	});
@@ -37,9 +38,9 @@ async function getAppliedLeaveStatus() {
 		return JsonResponse;
 		}    
 }
-async function getPendingLeaveRequest() {
+async function getPendingLeaveRequest(supervisor) {
     let id = getCurrentUserId();
-      let response =  await fetch(`http://localhost:5000/api/leave/pendingRequest?id=${id}`,{
+      let response =  await fetch(`http://localhost:5000/api/leave/pendingRequest?id=${id}&supervisor=${supervisor}`,{
 		method: "GET",
 		headers: {'Content-Type': 'application/json'}		
 	  })
@@ -62,6 +63,16 @@ async function changeLeaveStatus(status, id) {
 		return await response.json();
 	}
 }
+async function cancelLeave(id) {
+    console.log(id);
+	let response = await fetch(`http://localhost:5000/api/leave/remove?id=${id}`, {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+	});
+	if (response.ok) {
+		return await response.json();
+	}
+}
 
-const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatus, getPendingLeaveRequest,changeLeaveStatus };
+const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatus, getPendingLeaveRequest,changeLeaveStatus,cancelLeave };
 export default leaveService;

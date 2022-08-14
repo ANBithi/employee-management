@@ -1,12 +1,5 @@
-import {
-	Flex,
-	Grid,
-	GridItem,
-	Text,
-	VStack,
-} from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../../Helpers/userHelper";
 import leaveService from "../../services/leave.service";
 import { APPLIED_LEAVE_COLS } from "./leaveData";
 
@@ -119,8 +112,7 @@ const AppliedLeaveStatus = () => {
 									>
 										Pending
 									</GridItem>
-								)
-								     :  data.leaveStatus === 1 ? (
+								) : data.leaveStatus === 1 ? (
 									<GridItem
 										layerStyle="gridItemStyle"
 										colSpan={1}

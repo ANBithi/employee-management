@@ -86,3 +86,21 @@ export const PENDING_COLS = [
     {label: "Status",
     colSpan: 1,},
 ]
+
+export const LEAVE_CANCEL = [
+    {label: "Type",
+    colSpan: 2 ,
+    },
+    {label: "Reason",
+    colSpan: 2,},
+    {label: "Start Date",
+    colSpan: 1,},
+    {label: "End Date",
+    colSpan: 1,},
+    {label: "Days",
+    colSpan: 1,},
+    {label: "Day Portion",
+    colSpan: 1,},
+    {label: "Status",
+    colSpan: 1,},
+]
