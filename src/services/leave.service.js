@@ -1,4 +1,4 @@
-import { getCurrentUser, getCurrentUserId } from "../Helpers/userHelper";
+import {getCurrentUserId } from "../Helpers/userHelper";
 
 async function getSupervisors() {
 	let id = getCurrentUserId();

@@ -83,8 +83,8 @@ const DATA = [
 		link: "/finance",
 	},
 	{
-		label: "Hours Entry",
-		link: "/hours-entry",
+		label: "Work Book",
+		link: "/work-book",
 	},
 	{
 		label: "Resign",

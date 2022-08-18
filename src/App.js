@@ -16,12 +16,12 @@ import PendingStatus from "./Components/Evaluation/PendingStatus";
 import EmployeeEvaluation from "./Components/Evaluation/EmployeeEvaluation";
 import Finance from "./Components/Finance/Finance";
 import Resign from "./Components/Resign/Resign";
-import HoursEntry from "./Components/HoursEntry/HoursEntry";
 import LeaveApplication from "./Components/Leave/LeaveApplication/LeaveApplication";
 import LeaveDecline from "./Components/Leave/LeaveDecline";
 import LeaveCancel from "./Components/Leave/LeaveCancel";
 import AppliedLeaveStatus from "./Components/Leave/AppliedLeaveStatus";
 import PendingLeaveRequestStatus from "./Components/Leave/PendingLeaveRequestStatus";
+import WorkBook from "./Components/WorkBook/WorkBook";
 function App() {
 	return (
 		<BrowserRouter>
@@ -47,7 +47,7 @@ function App() {
 						<Route path="employee-evaluation" element={<EmployeeEvaluation />} />
 						<Route path="finance" element={<Finance />} />
 						<Route path="resign" element={<Resign />} />
-						<Route path="hours-entry" element={<HoursEntry />} />
+						<Route path="work-book" element={<WorkBook />} />
 						<Route path="leave-application" element={<LeaveApplication />} />
 						<Route path="leave-decline" element={<LeaveDecline />} />
 						<Route path="leave-cancel" element={<LeaveCancel />} />
