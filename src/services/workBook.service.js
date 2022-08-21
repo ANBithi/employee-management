@@ -38,5 +38,16 @@ async function getWorkBookData() {
 		}    
 }
 
-const workBookService = { entryWorkHours,getWorkBookData };
+async function getTotalHours(belongsTo) {
+      let response =  await fetch(`http://localhost:5000/api/workbook/getTotalHours?belongsTo=${belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		let JsonResponse = await response.json(); 
+		return JsonResponse;
+		}    
+}
+
+const workBookService = { entryWorkHours,getWorkBookData,getTotalHours };
 export default workBookService;
