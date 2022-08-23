@@ -1,5 +1,5 @@
 import { HStack, Select, VStack, Input, Text, Button,useToast, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import employeeService from "../../services/employee.service";
 import {
 	BLOOD_GROUP_OPTIONS,
@@ -9,11 +9,10 @@ import {
 	GENDER_OPTION,
 } from "./EmployeeData/personalData";
 const PersonalInfo = () => {
-	const [userPin, setUserPin] = useState();
+	const [pin, setPin] = useState();
 	const [salutation, setSalutation] = useState();
 	const [firstName, setFirstName] = useState();
 	const [lastName, setLastName] = useState();
-    const [nickName, setNickName] = useState();
 	const [fatherName, setFatherName] = useState();
 	const [motherName, setMotherName] = useState();
 	const [gender, setGender] = useState();
@@ -31,13 +30,30 @@ const PersonalInfo = () => {
 	const [passportNo, setPassportNo] = useState();
 	const [drivingLicense, setDrivingLicense] = useState();
 	const [nidNumber, setNidNumber] = useState();
-	const [extraCurr, setExtraCurr] = useState();
+	const [extraCurriculum, setExtraCurriculum] = useState();
 	const [remarks, setRemarks] = useState();
+	const [isAllDataAvailable, setIsAllDataAvailable] = useState(true);
+	const [personalInfoDef, setPersonalInfoDef] = useState();
     const toast =  useToast();
+
+
+	useEffect(()=>{
+		employeeService.getProfileInfo().then((data)=>{
+			if(data.response)
+			{
+				setPersonalInfoDef(data.profileInfo);
+			}
+			else {
+				setIsAllDataAvailable(false);
+			}
+			
+		});	
+	}, [])
 
 	const onUserPinChange = (e) => {
 		let value = e.target.value;
-		setUserPin((prevUserPin) => (prevUserPin = value));
+		value = parseInt(value);
+		setPin((prevUserPin) => (prevUserPin = value));
 	};
 	const onSalutationChange = (e) => {
 		let value = e.target.value;
@@ -50,10 +66,6 @@ const PersonalInfo = () => {
 	const onLastChange = (e) => {
 		let value = e.target.value;
 		setLastName((prevLast) => (prevLast = value));
-	};
-    const onNickNameChange = (e) => {
-		let value = e.target.value;
-		setNickName((prevNick) => (prevNick = value));
 	};
 	const onFatherNameChange = (e) => {
 		let value = e.target.value;
@@ -69,6 +81,7 @@ const PersonalInfo = () => {
 	};
 	const onBirthDateChange = (e) => {
 		let value = e.target.value;
+		value = new Date(value).toISOString();
 		setBirthDate((prevDate) => (prevDate = value));
 	};
 	const onBirthPlaceChange = (e) => {
@@ -97,48 +110,54 @@ const PersonalInfo = () => {
 	};
 	const onSonsNumberChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setNumberOfSons((prevNum) => (prevNum = value));
 	};
 	const onDaughterNumChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setNumberOfDaughters((prevNum) => (prevNum = value));
 	};
 	const onCardNumberChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setCardNo((prevNo) => (prevNo = value));
 	};
 	const onTinNumberChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setTinNo((prevNo) => (prevNo = value));
 	};
 	const onPassportNumberChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setPassportNo((prevNo) => (prevNo = value));
 	};
 	const onDrivingLicenseChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setDrivingLicense((prevLicense) => (prevLicense = value));
 	};
 	const onNidNumberChange = (e) => {
 		let value = e.target.value;
+		value = parseInt(value);
 		setNidNumber((prevNo) => (prevNo = value));
 	};
 	const onExtraCurrChange = (e) => {
 		let value = e.target.value;
-		setExtraCurr((prevCurr) => (prevCurr = value));
+		setExtraCurriculum((prevCurr) => (prevCurr = value));
 	};
 	const onRemarksChange = (e) => {
 		let value = e.target.value;
 		setRemarks((prevRem) => (prevRem = value));
 	};
 
-    const onUpdateClick =()=>{
+    const onCreateClick =()=>{
         let updatedUser = {
-			userPin,
+			pin,
             salutation,
 			firstName,
 			lastName,
-            nickName,
 			fatherName,
 			motherName,
             gender,
@@ -148,30 +167,34 @@ const PersonalInfo = () => {
             nationality,
             religion,
             maritalStatus,
-            spouseName,
             numberOfSons,
             numberOfDaughters,
             cardNo,
             tinNo,
             passportNo,
             drivingLicense,
-            nidNumber
+            nidNumber, extraCurriculum, remarks
 		};
 
-        if(employeeService.updatePersonalInfo(updatedUser)){
-            toast({
+		if(maritalStatus === MARITAL_STATUS_OPTIONS[1].value){
+			updatedUser = {...updatedUser, spouseName};
+		}
+			
+       employeeService.addProfileInfo(updatedUser).then((d)=>{
+		if(d){
+			toast({
                 containerStyle: {
                     fontSize: "14px",
                     fontWeight: "normal"},
-                title: 'Profile Updated.',
+                title: 'Profile Saved.',
                 position: "bottom-right",
                 variant : "subtle",
                 status: 'success',
                 duration: 1000,
                 isClosable: true,
               })
-        }
-
+		}
+	   })
     }
 
 	return (
@@ -191,6 +214,7 @@ const PersonalInfo = () => {
 								w="70%"
 								placeholder="Enter your pin"
 								type="number"
+								defaultValue={personalInfoDef?.pin}
 								onChange={onUserPinChange}
                                 borderColor = "primary.200"
                                 
@@ -205,6 +229,7 @@ const PersonalInfo = () => {
 								layerStyle="inputStyle"
 								placeholder="Salutation"
 								maxLength="60"
+								defaultValue={personalInfoDef?.salutation}
 								onChange={onSalutationChange}
 							/>
 						</HStack>
@@ -215,6 +240,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.firstName}
 								placeholder="Enter your first name"
 								onChange={onFirstChange}
 							/>
@@ -226,19 +252,9 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.lastName}
 								placeholder="Enter your last name"
 								onChange={onLastChange}
-							/>
-						</HStack>
-						{/* nickname input */}
-						<HStack layerStyle="inputStackStyle">
-							<Text w="20%" >
-								Nickname
-							</Text>
-							<Input
-								layerStyle="inputStyle"
-								placeholder="Enter your nickname"
-                                onChange={onNickNameChange}
 							/>
 						</HStack>
 						{/* father's name input */}
@@ -248,6 +264,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.fatherName}
 								placeholder="Enter your father's name"
 								onChange={onFatherNameChange}
 							/>
@@ -259,6 +276,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.motherName}
 								placeholder="Enter your mother's name"
 								onChange={onMotherNameChange}
 							/>
@@ -270,14 +288,19 @@ const PersonalInfo = () => {
 							</Text>
 							<Select
 								w="70%"
-								placeholder="Select gender"
 								onChange={onGenderChange}
-							>
+							>  
 								{GENDER_OPTION.map((option, index) => {
+									let selected = false;
+									if (personalInfoDef?.gender === option.value) 
+									{
+										selected = true;
+									}
 									return (
 										<option
 											key={index}
 											value={option.value}
+											selected = {selected}
 										>
 											{option.label}
 										</option>
@@ -292,6 +315,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.birthDate}
 								type="date"
 								onChange={onBirthDateChange}
 							/>
@@ -304,6 +328,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Location"
+								defaultValue={personalInfoDef?.birthPlace}
 								onChange={onBirthPlaceChange}
 							/>
 						</HStack>
@@ -314,14 +339,19 @@ const PersonalInfo = () => {
 							</Text>
 							<Select
 								w="70%"
-								placeholder="Select blood group"
 								onChange={onBloodGroupChange}
 							>
 								{BLOOD_GROUP_OPTIONS.map((option, index) => {
+									let selected = false;
+									if (personalInfoDef?.bloodGroup === option.value) 
+									{
+										selected = true;
+									}
 									return (
 										<option
 											key={index}
 											value={option.value}
+											selected = {selected}
 										>
 											{option.label}
 										</option>
@@ -338,14 +368,19 @@ const PersonalInfo = () => {
 							</Text>
 							<Select
 								w="70%"
-								placeholder="Select nationality"
 								onChange={onNationalityChange}
 							>
 								{NATIONALITY_OPTION.map((option, index) => {
+									let selected = false;
+									if (personalInfoDef?.nationality === option.value) 
+									{
+										selected = true;
+									}
 									return (
 										<option
 											key={index}
 											value={option.value}
+											selected = {selected}
 										>
 											{option.label}
 										</option>
@@ -360,14 +395,20 @@ const PersonalInfo = () => {
 							</Text>
 							<Select
 								w="70%"
-								placeholder="Select religion"
+								defaultValue={personalInfoDef?.religion}
 								onChange={onReligionChange}
 							>
 								{RELIGION_OPTION.map((option, index) => {
+									let selected = false;
+									if (personalInfoDef?.religion === option.value) 
+									{
+										selected = true;
+									}
 									return (
 										<option
 											key={index}
 											value={option.value}
+											selected = {selected}
 										>
 											{option.label}
 										</option>
@@ -382,14 +423,20 @@ const PersonalInfo = () => {
 							</Text>
 							<Select
 								w="70%"
-								placeholder="Select marital status"
+								defaultValue={personalInfoDef?.maritalStatus}
 								onChange={onMaritalStatusChange}
 							>
 								{MARITAL_STATUS_OPTIONS.map((option, index) => {
+									let selected = false;
+									if (personalInfoDef?.maritalStatus === option.value) 
+									{
+										selected = true;
+									}
 									return (
 										<option
 											key={index}
 											value={option.value}
+											selected = {selected}
 										>
 											{option.label}
 										</option>
@@ -398,16 +445,21 @@ const PersonalInfo = () => {
 							</Select>
 						</HStack>
 						{/* spouse input */}
-						<HStack layerStyle="inputStackStyle">
+						{
+							maritalStatus === "married" && (
+								<HStack layerStyle="inputStackStyle">
 							<Text w="20%" >
 								Spouse Name
 							</Text>
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Name of spouse"
+								defaultValue={personalInfoDef?.spouseName}
 								onChange={onSpouseNameChange}
 							/>
 						</HStack>
+							) 
+						}
 						{/* sons input */}
 						<HStack layerStyle="inputStackStyle">
 							<Text w="20%" >
@@ -416,6 +468,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Number of sons"
+								defaultValue={personalInfoDef?.numberOfSons}
 								type="number"
 								onChange={onSonsNumberChange}
 							/>
@@ -428,6 +481,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Number of daughter"
+								defaultValue={personalInfoDef?.numberOfDaughters}
 								type="number"
 								onChange={onDaughterNumChange}
 							/>
@@ -439,6 +493,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.cardNo}
 								placeholder="Enter card no"
 								type="number"
 								onChange={onCardNumberChange}
@@ -452,6 +507,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Enter TIN number"
+								defaultValue={personalInfoDef?.tinNo}
 								onChange={onTinNumberChange}
 							/>
 						</HStack>
@@ -463,6 +519,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Enter passport number"
+								defaultValue={personalInfoDef?.passportNo}
 								type="number"
 								onChange={onPassportNumberChange}
 							/>
@@ -474,6 +531,7 @@ const PersonalInfo = () => {
 							</Text>
 							<Input
 								layerStyle="inputStyle"
+								defaultValue={personalInfoDef?.drivingLicense}
 								placeholder="Enter driving license"
 								onChange={onDrivingLicenseChange}
 							/>
@@ -486,6 +544,7 @@ const PersonalInfo = () => {
 							<Input
 								layerStyle="inputStyle"
 								placeholder="Enter NID number"
+								defaultValue={personalInfoDef?.nidNumber}
 								type="number"
 								onChange={onNidNumberChange}
 							/>
@@ -503,6 +562,7 @@ const PersonalInfo = () => {
 						layerStyle="inputStyle"
 						fontSize="14px"
 						placeholder="hobbies, activities"
+						defaultValue={personalInfoDef?.extraCurriculum}
 						maxLength="70"
 						onChange={onExtraCurrChange}
 					/>
@@ -516,12 +576,16 @@ const PersonalInfo = () => {
 						layerStyle="inputStyle"
 						placeholder="Remarks"
 						maxLength="70"
+						defaultValue={personalInfoDef?.remarks}
 						onChange={onRemarksChange}
 					/>
 				</HStack>
                </VStack>
                <HStack layerStyle="pageButtonStyle">
-                <Button fontWeight="normal" onClick={onUpdateClick}>Update</Button>
+				{(isAllDataAvailable) ? 
+                <Button fontWeight="normal" onClick={onCreateClick}>Create</Button>
+				:
+				<Button fontWeight="normal" onClick={onCreateClick}>Update</Button>}
                 <Button fontWeight="normal">Refresh</Button>
                </HStack>
 			</VStack>

@@ -81,8 +81,26 @@ function saveExperience(experience) {
 function saveAcademicInfo(academic) {
 	return true;
 }
-function updateManageProfile(profile){
-        return true;
+async function addProfileInfo(profile){
+	let request = {...profile, belongsTo : getCurrentUserId()};
+	let response = await fetch("http://localhost:5000/api/employee/createInfo", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(request),
+	});
+	if (response.ok) {
+		return await response.json();
+	}
+}
+async function getProfileInfo() {
+	let belongsTo = getCurrentUserId();
+	let response =  await fetch(`http://localhost:5000/api/employee/getInfo?belongsTo=${belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		return await response.json();
+		}    
 }
 const employeeService = {
 	updatePersonalInfo,
@@ -90,7 +108,8 @@ const employeeService = {
 	saveQualification,
 	saveExperience,
         saveAcademicInfo,
-        updateManageProfile,
+		addProfileInfo,
+		getProfileInfo,
 		getEmployeeContact,
 		getEmployeeAddress,
 		addAddress
