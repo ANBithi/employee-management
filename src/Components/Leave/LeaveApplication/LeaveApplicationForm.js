@@ -9,9 +9,9 @@ import {
 	Checkbox, useToast
 } from "@chakra-ui/react";
 import { LEAVE_TYPE } from "../leaveData";
-import leaveService from "../../../services/leave.service";
 import { getEndDate, getStartDate,getTotalDays } from "../../util";
 import CustomCalender from "../../CustomCalender";
+import userService from "../../../services/user.service";
 const LeaveApplicationForm = ({
 	leaveApplicationObj,
 	setLeaveApplicationObj,
@@ -34,7 +34,7 @@ const LeaveApplicationForm = ({
 
 
 	useEffect(() => {
-		leaveService.getSupervisors().then( data => {
+		userService.getSupervisors().then( data => {
 				setSupervisors(data);
 		}
 		)
@@ -122,12 +122,12 @@ const LeaveApplicationForm = ({
 				<Select
 					name="leaveType"
 					w="70%"
-					placeholder="Select Leave Type"
 					onChange={onLeaveApplicationChange}
 				>
 					{LEAVE_TYPE.map((option, index) => {
+						let selected = true;
 						return (
-							<option key={index} value={option.value}>
+							<option key={index} value={option.value} selected = {selected}>
 								{option.label}
 							</option>
 						);
@@ -210,12 +210,11 @@ const LeaveApplicationForm = ({
 					name="supervisor"
 					w="70%"
 					onChange={onLeaveApplicationChange}
-					placeholder="Select Supervisor"
 				>
 					{supervisors?.map((supervisor, i) => {
 						return (
 							<option key={i} value={supervisor.id}>
-								{supervisor.firstName} {supervisor.lastName}
+								{supervisor.fullName}
 							</option>
 						);
 					})}

@@ -22,6 +22,7 @@ import LeaveCancel from "./Components/Leave/LeaveCancel";
 import AppliedLeaveStatus from "./Components/Leave/AppliedLeaveStatus";
 import PendingLeaveRequestStatus from "./Components/Leave/PendingLeaveRequestStatus";
 import WorkBook from "./Components/WorkBook/WorkBook";
+import AdminPanel from "./Components/AdminPanel/AdminPanel";
 function App() {
 	return (
 		<BrowserRouter>
@@ -30,6 +31,7 @@ function App() {
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route path="settings" element={<Setting />} />
+						<Route path="admin-panel" element={<AdminPanel />} />
 						<Route
 							path="manage-profile"
 							element={<ManageProfile />}

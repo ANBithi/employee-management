@@ -1,16 +1,5 @@
 import {getCurrentUserId } from "../Helpers/userHelper";
 
-async function getSupervisors() {
-	let id = getCurrentUserId();
-	let response = await fetch(`http://localhost:5000/api/user/getSupervisors?id=${id}`, {
-		method: "GET",
-		headers: { "Content-Type": "application/json" },
-	});
-	if (response.ok) {
-		let JsonResponse = await response.json(); 
-		return JsonResponse;
-	}
-}
 async function applyLeave(leaveApplication) {
 	const { leaveData, leaveType, supervisor, reason } = leaveApplication;
 	let request = { ...leaveData, leaveType, supervisor,reason , belongsTo: getCurrentUserId() };
@@ -71,5 +60,5 @@ async function cancelLeave(id) {
 	}
 }
 
-const leaveService = { getSupervisors, applyLeave, getAppliedLeaveStatus, getPendingLeaveRequest,changeLeaveStatus,cancelLeave };
+const leaveService = { applyLeave, getAppliedLeaveStatus, getPendingLeaveRequest,changeLeaveStatus,cancelLeave };
 export default leaveService;

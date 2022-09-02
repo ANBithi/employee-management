@@ -11,172 +11,73 @@ import {
 	VStack,
 	HStack,
 	Text,
+	SimpleGrid,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import leaveService from "../../services/leave.service";
-import CustomCalender from "../CustomCalender";
 
 const AcademicModal = ({ isOpen, onClose, academic }) => {
-
-
-	useEffect(() => {
-		var selDates = [];
-		if (currentLeave) {
-			selDates.push(
-				new Date(currentLeave.startDate),
-				new Date(currentLeave.endDate)
-			);
-			console.log(currentLeave.startDate);
-			setSelectedDates(selDates);
-		} else return;
-	}, [isOpen]);
-
-	const onRejectClick = () => {
-		leaveService.changeLeaveStatus(2, currentLeave.id).then((d) => {
-			if (d === true) {
-				onClose();
-				if(onSuccess!== undefined){
-					onSuccess();
-				}
-				toast({
-					containerStyle: {
-						fontSize: "14px",
-						fontWeight: "normal",
-					},
-					title: "Rejected",
-					position: "bottom-right",
-					variant: "subtle",
-					status: "error",
-					duration: 1000,
-					isClosable: true,
-				});
-			}
-		});
-	};
-
-	const onAcceptClick = () => {
-		leaveService.changeLeaveStatus(1, currentLeave.id).then((d) => {
-			if (d === true) {
-				onClose();
-				if(onSuccess!== undefined){
-					onSuccess();
-				}
-				toast({
-					containerStyle: {
-						fontSize: "14px",
-						fontWeight: "normal",
-					},
-					title: "Accepted",
-					position: "bottom-right",
-					variant: "subtle",
-					status: "success",
-					duration: 1000,
-					isClosable: true,
-				});
-			}
-		});
-	};
-	const onCancelClick = () => {
-		
-		leaveService.cancelLeave(currentLeave.id).then((d) => {
-			if (d === true) {
-				onClose();
-				if(onSuccess!== undefined){
-					onSuccess();
-				}
-				toast({
-					containerStyle: {
-						fontSize: "14px",
-						fontWeight: "normal",
-					},
-					title: "Canceled",
-					position: "bottom-right",
-					variant: "subtle",
-					status: "success",
-					duration: 1000,
-					isClosable: true,
-				});
-			}
-		});
-	};
-
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={onClose} size="md">
 			<ModalOverlay />
 			<ModalContent>
-				<ModalHeader>Leave Details</ModalHeader>
+				<ModalHeader>Academic Details</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody>
-					<VStack align="start" fontSize="14px">
-						{currentLeave?.employee && (
+				<ModalBody >
+					{academic && (
+						<>
 							<HStack>
-								<Text fontWeight="bold">Employee Name:</Text>
-								<Text>{currentLeave?.employee}</Text>
-							</HStack>
-						)}
-						{currentLeave?.supervisor && (
-							<HStack>
-								<Text fontWeight="bold">Supervisor Name:</Text>
-								<Text>{currentLeave?.supervisor}</Text>
-							</HStack>
-						)}
-						<HStack>
-							<Text fontWeight="bold">Leave Type:</Text>
-							<Text>{currentLeave?.leaveType}</Text>
-						</HStack>
-						<HStack>
-							<HStack>
-								<Text fontWeight="bold">Reason:</Text>
-								<Text>{currentLeave?.reason}</Text>
+								<Text w = "35%" fontWeight="bold">Degree:</Text>
+								<Text>{academic.degree}</Text>
 							</HStack>
 							<HStack>
-								<Text fontWeight="bold">Total Days:</Text>
-								<Text color="green.400">
-									{currentLeave?.totalDays}
-								</Text>
+								<Text w = "35%" fontWeight="bold">Exam Title:</Text>
+								<Text>{academic.examTitle}</Text>
 							</HStack>
-						</HStack>
-						<CustomCalender
-							activeStartDate={
-								currentLeave?.startDate
-									? new Date(currentLeave?.startDate)
-									: new Date()
-							}
-							value={selectedDates}
-						></CustomCalender>
-					</VStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Institute:</Text>
+								<Text>{academic.institute}</Text>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Board/Country:</Text>
+								<Text>{academic.boardOrCountry}</Text>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Major/Group:</Text>
+								<Text>{academic.majorOrGroup}</Text>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Result:</Text>
+								<Text>{academic.result}</Text>
+							</HStack>
+							<HStack spacing={5}>
+								<HStack>
+									<Text  fontWeight="bold">CGPA/Marks:</Text>
+									<Text>{academic.cgpaOrMarks}</Text>
+								</HStack>
+								<HStack>
+									<Text fontWeight="bold" opacity={0.5}>
+										Scale/Out Off:
+									</Text>
+									<Text opacity={0.5}>{academic.scale}</Text>
+								</HStack>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Passed Year:</Text>
+								<Text>{academic.passedYear}</Text>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Duration:</Text>
+								<Text>{academic.duration}</Text>
+							</HStack>
+							<HStack>
+								<Text w = "35%" fontWeight="bold">Achievement:</Text>
+								<Text>{academic.achievement}</Text>
+							</HStack>
+						</>
+					)}
 				</ModalBody>
-				{currentLeave?.employee && (
-					<ModalFooter pr="12px">
-						<Button
-							colorScheme="red"
-							mr={3}
-							onClick={onRejectClick}
-						>
-							Reject
-						</Button>
-						<Button
-							colorScheme="green"
-							mr={3}
-							onClick={onAcceptClick}
-						>
-							Accept
-						</Button>
-					</ModalFooter>
-				)}
-				{currentLeave?.supervisor && (
-					<ModalFooter pr="12px">
-						<Button
-							colorScheme="red"
-							mr={3}
-							onClick={onCancelClick}
-						>
-							Cancel
-						</Button>
-					</ModalFooter>
-				)}
+				<ModalFooter pr="12px"></ModalFooter>
 			</ModalContent>
 		</Modal>
 	);
 };
-export default PendingModal;
+export default AcademicModal;

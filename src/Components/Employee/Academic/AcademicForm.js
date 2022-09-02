@@ -1,4 +1,5 @@
 import { HStack, VStack, Input, Select, Text } from "@chakra-ui/react";
+import { ACADEMIC_DATA } from "./academicData";
 const AcademicForm = ({ academicObj, setAcademicObj }) => {
 	const onAcademicChange = (e) => {
 		let { value, name } = e.target;
@@ -14,8 +15,17 @@ const AcademicForm = ({ academicObj, setAcademicObj }) => {
 						<Select
 							name="degree"
                             w= "70%"
+							placeholder="Select a degree"
 							onChange={onAcademicChange}
-						/>
+						>
+							{ACADEMIC_DATA.map((option, index) => {
+						return (
+							<option key={index} value={option.label} >
+								{option.label}
+							</option>
+						);
+					})}
+						</Select>
 					</HStack>
 					{/* exam title input */}
 					<HStack layerStyle="inputStackStyle">
@@ -90,7 +100,7 @@ const AcademicForm = ({ academicObj, setAcademicObj }) => {
 						<Input
 							name="passedYear"
 							layerStyle="inputStyle"
-							type="date"
+							type="number"
 							onChange={onAcademicChange}
 						/>
 					</HStack>

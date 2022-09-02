@@ -72,14 +72,90 @@ async function addAddress (address, type) {
 		}    
 }
 }
-function saveQualification(qualification) {
-	return true;
+async function saveQualification(qualification) {
+	let request = {...qualification, belongsTo : getCurrentUserId()};
+	console.log(request);
+	let response =  await fetch("http://localhost:5000/api/employee/AddProfQualification",{
+		method: "POST",
+		headers: {'Content-Type': 'application/json'}, 
+		body: JSON.stringify(request)
+	  })
+	
+	  if (response.ok) {
+		return await response.json();
+	}
 }
-function saveExperience(experience) {
-	return true;
+async function getProfQualification() {
+	let request = {
+		belongsTo: getCurrentUserId(),
+	}
+
+	let response =  await fetch(`http://localhost:5000/api/employee/GetProfQualification?belongsTo=${request.belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		return await response.json();
+		}  
 }
-function saveAcademicInfo(academic) {
-	return true;
+
+async function saveExperience(experience) {
+	let request = {...experience, belongsTo : getCurrentUserId()};
+	console.log(request);
+	let response =  await fetch("http://localhost:5000/api/employee/AddExperience",{
+		method: "POST",
+		headers: {'Content-Type': 'application/json'}, 
+		body: JSON.stringify(request)
+	  })
+	
+	  if (response.ok) {
+		return await response.json();
+	}
+}
+
+async function getExperiences() {
+	let request = {
+		belongsTo: getCurrentUserId(),
+	}
+
+	let response =  await fetch(`http://localhost:5000/api/employee/GetExperience?belongsTo=${request.belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		return await response.json();
+		}  
+}
+async function saveAcademicInfo(academic) {
+	let {scale, cgpaOrMarks} = academic;
+	scale = parseFloat(scale);
+	cgpaOrMarks = parseFloat(cgpaOrMarks);
+
+	let request = {...academic, cgpaOrMarks, scale, belongsTo : getCurrentUserId()};
+	console.log(request);
+	let response =  await fetch("http://localhost:5000/api/employee/AddAcademic",{
+		method: "POST",
+		headers: {'Content-Type': 'application/json'}, 
+		body: JSON.stringify(request)
+	  })
+	
+	  if (response.ok) {
+		return await response.json();
+	}
+}
+
+async function getAcademic() {
+	let request = {
+		belongsTo: getCurrentUserId(),
+	}
+
+	let response =  await fetch(`http://localhost:5000/api/employee/getAcademic?belongsTo=${request.belongsTo}`,{
+		method: "GET",
+		headers: {'Content-Type': 'application/json'}		
+	  })
+	  if (response.ok){
+		return await response.json();
+		}  
 }
 async function addProfileInfo(profile){
 	let request = {...profile, belongsTo : getCurrentUserId()};
@@ -106,8 +182,11 @@ const employeeService = {
 	updatePersonalInfo,
 	addContact,
 	saveQualification,
+	getProfQualification,
 	saveExperience,
+	getExperiences,
         saveAcademicInfo,
+		getAcademic,
 		addProfileInfo,
 		getProfileInfo,
 		getEmployeeContact,

@@ -1,4 +1,5 @@
 import { HStack, VStack, Input, Text, Select} from "@chakra-ui/react";
+import { CourseType } from "./ProfQualificationData";
 const ProfessionalForm = ({ professionalObj, setProfessionalObj }) => {
 	const onProfessionalChange = (e) => {
 		let { value, name } = e.target;
@@ -15,9 +16,19 @@ const ProfessionalForm = ({ professionalObj, setProfessionalObj }) => {
 				<Text w="20%">Course Type</Text>
 				<Select
 					name="courseType"
+					placeholder="Select a course type"
 					w="70%"
 					onChange={onProfessionalChange}
-				/>
+				>
+					{CourseType.map((option, index) => {
+								
+						return (
+							<option key={index} value={option.value}>
+								{option.value}
+							</option>
+						);
+					})}
+				</Select>
 			</HStack>
 			{/* course title input */}
 			<HStack layerStyle="inputStackStyle">

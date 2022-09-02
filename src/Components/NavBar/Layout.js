@@ -14,15 +14,16 @@ import loginService from "../../services/login.service";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { DATA } from "./navigationData";
 import { Outlet, Link, useNavigate } from "react-router-dom";
+import { getCurrentUser } from "../../Helpers/userHelper";
 
 export default function Layout() {
 	const navigate = useNavigate();
 	const [userData, setUserData] = useState();
 
-	useEffect(()=>{
+	useEffect(() => {
 		setUserData(JSON.parse(localStorage.getItem("userDetails")));
-	}, [])
-	
+	}, []);
+
 	const onLogoutClick = () => {
 		loginService.logOff();
 		navigate("/login");
@@ -36,7 +37,8 @@ export default function Layout() {
 		>
 			<Flex
 				layerStyle="navbarStyle"
-				align="center" justify="space-between"
+				align="center"
+				justify="space-between"
 			>
 				{/* <Image src={Logo.src} h="50px" /> */}
 
@@ -53,12 +55,17 @@ export default function Layout() {
 										rightIcon={<ChevronDownIcon />}
 									>
 										{item.label}
-										</MenuButton>
+									</MenuButton>
 									<MenuList>
 										{item.subMenu.map((menu, index) => {
 											return (
 												<MenuItem key={index}>
-													<Link to={menu.link} style = {{width : "100%"}}>
+													<Link
+														to={menu.link}
+														style={{
+															width: "100%",
+														}}
+													>
 														{menu.label}
 													</Link>
 												</MenuItem>
@@ -87,12 +94,23 @@ export default function Layout() {
 								name={`${userData?.firstName} ${userData?.lastName}`}
 								src="https://bit.ly/broken-link"
 							/>
-							
 						</MenuButton>
 						<MenuList>
 							<MenuItem>
-								<Link to="/settings" style = {{width: "100%"}}>Settings</Link>
+								<Link to="/settings" style={{ width: "100%" }}>
+									Settings
+								</Link>
 							</MenuItem>
+							{userData?.role === "employee" && (
+								<MenuItem>
+									<Link
+										to="/admin-panel"
+										style={{ width: "100%" }}
+									>
+										Admin Panel
+									</Link>
+								</MenuItem>
+							)}
 							<MenuItem onClick={onLogoutClick}>Logout</MenuItem>
 						</MenuList>
 					</Menu>
