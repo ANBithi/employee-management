@@ -1,18 +1,26 @@
-import {Flex, Text, VStack, Grid, GridItem, HStack, Input, Select, Button, useToast, Divider} from "@chakra-ui/react";
+import {Flex, Text, VStack, Grid, GridItem, HStack, useDisclosure, Select, Button, useToast, Divider, SimpleGrid} from "@chakra-ui/react";
 import { useEffect,useState } from "react";
 import { getCurrentUserId } from "../../Helpers/userHelper";
 import financeService from "../../services/finance.service";
 import workBookService from "../../services/workBook.service";
 import moment from "moment";
+import userService from "../../services/user.service";
+import { PAYSLIP_ROW_VAL } from "./financeData";
+import PaySlipModal from "./PaySlipModal";
 const Finance = () => {
     const [totalHours, setTotalHours] = useState();
 	const [monthlyFinance, setMonthlyFinance] = useState();
+	const [generatePaySlip, setGeneratePaySlip] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const toast = useToast();
     const fetchData = () => {
 		let belongsTo = getCurrentUserId();
         workBookService.getTotalHours(belongsTo).then((d)=>{
                 setTotalHours(d);
         })
+		userService.getSupervisorById().then(d=>{
+			console.log(d);
+		})
 		financeService.getFinanceMonthly(belongsTo).then(d=>{
 			if(d.responseStatus === true) {
 				setMonthlyFinance(d.response);
@@ -72,7 +80,14 @@ const Finance = () => {
 						</>
 					)
 				}
+				<Button onClick={()=>{
+					setGeneratePaySlip(true)
+					onOpen();
+				}
+					}>Generate pay slip</Button>
 			</VStack>
+				<PaySlipModal isOpen={isOpen}
+					onClose={onClose} generatePaySlip={generatePaySlip}></PaySlipModal>
 		</Flex>
 	);
 }

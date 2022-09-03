@@ -13,13 +13,12 @@ async function getSupervisors() {
 }
 async function getSupervisorById() {
     let user = getCurrentUser();
-    let response = await fetch(`http://localhost:5000/api/user/getSupervisors?id=${user.reportsTo}`, {
+    let response = await fetch(`http://localhost:5000/api/user/getSupervisorById?superId=${user.reportsTo}`, {
 		method: "GET",
 		headers: { "Content-Type": "application/json" },
 	});
 	if (response.ok) {
-		let JsonResponse = await response.json(); 
-		return JsonResponse;
+		return await response.json();
 	}
 }
 
