@@ -49,5 +49,16 @@ async function getTotalHours(belongsTo) {
 		}    
 }
 
-const workBookService = { entryWorkHours,getWorkBookData,getTotalHours };
+async function getTotalWorkDays(belongsTo) {
+	let response =  await fetch(`http://localhost:5000/api/workbook/getTotalWorkDays?belongsTo=${belongsTo}`,{
+	  method: "GET",
+	  headers: {'Content-Type': 'application/json'}		
+	})
+	if (response.ok){
+	  let JsonResponse = await response.json(); 
+	  return JsonResponse;
+	  }    
+}
+
+const workBookService = { entryWorkHours,getWorkBookData,getTotalHours, getTotalWorkDays };
 export default workBookService;

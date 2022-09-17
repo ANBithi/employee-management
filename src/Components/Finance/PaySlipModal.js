@@ -13,20 +13,22 @@ import {
 	Grid,
 	GridItem,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
+import { getCurrentUser, getCurrentUserId } from "../../Helpers/userHelper";
+import financeService from "../../services/finance.service";
+import workBookService from "../../services/workBook.service";
 import { PAYSLIP_ROW_VAL } from "./financeData";
-const PaySlipModal = ({ isOpen, onClose, generatePaySlip }) => {
+const PaySlipModal = ({ isOpen, onClose, payslipData }) => {
 	const contentRef = useRef();
-
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="full">
 			<ModalOverlay />
-			<ModalContent bg = "primary.50" color = "primary.900">
+			<ModalContent bg="primary.50" color="primary.900">
 				<ModalHeader>Month/Year</ModalHeader>
 				<ModalCloseButton />
-				<ModalBody ref={contentRef} >
-					{generatePaySlip && (
+				<ModalBody ref={contentRef}>
+					{payslipData !== undefined && (
 						<VStack w="full" gap={0}>
 							<VStack mb="3%" mt="2%">
 								<Text fontWeight="bold" fontSize="22px">
@@ -38,66 +40,73 @@ const PaySlipModal = ({ isOpen, onClose, generatePaySlip }) => {
 							</VStack>
 							<Grid w="full">
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>PIN</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											PIN :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.pin}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>Card No</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											Card No :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.cardNo}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>Employee Name</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											Employee Name :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.employeeName}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>Designation</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											Designation :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.designation}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>TIN</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											TIN :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.tin}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>Total Workdays</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											Total Workdays :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.workDays}
+										</Text>
 									</HStack>
 								</GridItem>
 								<GridItem>
-									<HStack justify="space-around">
-										<HStack justify="space-between" w="30%">
-											<Text>Salary Issue-Date</Text>
-											<Text>:</Text>
-										</HStack>
-										<Text>value</Text>
+									<HStack justify="center">
+										<Text align="start" w="30%">
+											Salary Issue-Date :
+										</Text>
+										<Text w="30%" align="end">
+											{payslipData?.salaryIssueDate}
+										</Text>
 									</HStack>
 								</GridItem>
 							</Grid>
@@ -123,7 +132,23 @@ const PaySlipModal = ({ isOpen, onClose, generatePaySlip }) => {
 								>
 									Amounts
 								</GridItem>
-								{PAYSLIP_ROW_VAL.map((val) => {
+								{PAYSLIP_ROW_VAL.map((val, index) => {
+									let value;
+									if (index === 0) {
+										value = payslipData?.basicSalary;
+									}
+									if (index === 1) {
+										value = payslipData?.housingSalary;
+									}
+									if (index === 2) {
+										value = payslipData?.medicalAllowance;
+									}
+									if (index === 3) {
+										value = payslipData?.taxDeduction;
+									}
+									if (index === 4) {
+										value = payslipData?.total;
+									}
 									return (
 										<>
 											<GridItem
@@ -131,6 +156,7 @@ const PaySlipModal = ({ isOpen, onClose, generatePaySlip }) => {
 												bg="transparent"
 												border="1px solid"
 												borderColor="primary.900"
+												key={index}
 											>
 												{val.name}
 											</GridItem>
@@ -140,7 +166,7 @@ const PaySlipModal = ({ isOpen, onClose, generatePaySlip }) => {
 												border="1px solid"
 												borderColor="primary.900"
 											>
-												40000
+												{value}
 											</GridItem>
 										</>
 									);

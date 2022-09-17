@@ -31,7 +31,7 @@ function App() {
 					<Route path="/" element={<Layout />}>
 						<Route index element={<Home />} />
 						<Route path="settings" element={<Setting />} />
-						<Route path="administration" element={<Administration />} />
+						<Route path="administration" element={<Administration/>} />
 						<Route
 							path="manage-profile"
 							element={<ManageProfile />}
