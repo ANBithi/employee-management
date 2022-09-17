@@ -60,17 +60,19 @@ const WorkBook = () => {
     return (
 		<Flex layerStyle="pageStyle">
 			<VStack w="full" align="flex-start">
-				<Text layerStyle="sectionHeaderStyle">Input Work Hours</Text>
-				<HStack w="full">
+				<Text layerStyle="sectionHeaderStyle" mb = "8px" >Input Work Hours</Text>
+				<HStack w="full" pb = "2%">
 					<Input
 						name="date"
-						w="33%"
+						w="30%"
+						h ="40px"
 						type="date"
 						onChange={onInputChange}
 					/>
 					<Select
 						name="workType"
-						w="33%"
+						w="30%"
+						h ="40px"
 						onChange={(e) => {
 							let { value } = e.target;
 							if (value === "On Leave" || value === "Holiday") {
@@ -94,27 +96,27 @@ const WorkBook = () => {
 					{availHours === true ? (
 						<Input
 							name="hours"
-							w="33%"
+							w="30%"
+							h ="40px"
 							type="number"
 							onChange={onInputChange}
 						/>
 					) : (
-						<HStack w = "33%" justify= "center" gap = "6%">
+						<HStack w = "30%" justify= "center" gap = "6%">
 							<Input
 							name="days"
 							w="70%"
+							h ="40px"
 							type="number"
 							onChange={onInputChange}
 						/>
 						<Text>Days</Text>
 							</HStack>
 					)}
+					<Button w = "10%" onClick={onSaveButtonClick}>Save</Button>
 				</HStack>
-				<HStack w="full" justify="end">
-					<Button onClick={onSaveButtonClick}>Save</Button>
-				</HStack>
-				<Text layerStyle="sectionHeaderStyle">Work Book</Text>
-				<Grid templateColumns="repeat(3, 1fr)" gap={2} w="full">
+				<Text layerStyle="sectionHeaderStyle" >Work Book</Text>
+				<Grid pt = "8px" templateColumns="repeat(3, 1fr)" gap={2} w="full">
 					{HOURS_ENTRY_COL.map((col, index) => {
 						return (
 							<GridItem

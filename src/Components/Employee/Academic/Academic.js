@@ -66,7 +66,6 @@ const Academic = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 				{userAcademics?.length > 0 && (
 					<VStack w="full" align="start">

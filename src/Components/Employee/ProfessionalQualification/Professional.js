@@ -63,7 +63,6 @@ const Professional = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 
 				{userProfQualification?.length > 0 && (

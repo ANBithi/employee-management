@@ -131,7 +131,6 @@ const ContactInfo = () => {
 							Update
 						</Button>
 					)}
-					<Button fontWeight="normal">Refresh</Button>
 				</HStack>
 			</VStack>
 		</Flex>

@@ -63,7 +63,6 @@ const Experience = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 				{userExperiences?.length > 0 && (
 					<VStack w="full" align="start">

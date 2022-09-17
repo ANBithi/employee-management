@@ -9,7 +9,8 @@ import {
 	FormLabel,
 	Link,
 	useColorModeValue,
-	useToast
+	useToast,
+	Center
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -58,8 +59,8 @@ const Login = () => {
 		setUserPassword((prevUserPassword) => (prevUserPassword = value));
 	};
 	return (
-		<Flex h="full" w="full" color = {color}>
-			<VStack h="full" w="50%">
+		<Center h="full" w="full" color = {color}>
+			<VStack w="50%">
 				<Heading mt="12%">Welcome Back</Heading>
 				<Text fontSize="14px">
 					Welcome back! Please enter your details.
@@ -110,7 +111,7 @@ const Login = () => {
 				</Button>
 			</VStack>
 			
-		</Flex>
+		</Center>
 	);
 };
 export default Login;

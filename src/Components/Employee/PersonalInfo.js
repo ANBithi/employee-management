@@ -586,7 +586,6 @@ const PersonalInfo = () => {
                 <Button fontWeight="normal" onClick={onCreateClick}>Create</Button>
 				:
 				<Button fontWeight="normal" onClick={onCreateClick}>Update</Button>}
-                <Button fontWeight="normal">Refresh</Button>
                </HStack>
 			</VStack>
 		</Flex>

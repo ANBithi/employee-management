@@ -32,7 +32,22 @@ async function getUserSupervisor() {
 		return await response.json();
 	}
 }
-
-const userService = {getSupervisors, getUserSupervisor, getAllUsers}
+async function changePassword(oldPassword, newPassword) {
+	let request = {
+	  id : getCurrentUserId(),
+	  oldPassword,
+	  newPassword
+	}
+	let response =  await fetch("http://localhost:5000/api/user/changePassword",{
+	 method: "POST",
+	 headers: {'Content-Type': 'application/json'}, 
+	 body: JSON.stringify(request)
+   })
+  
+   if (response.ok) {
+	return await response.json();
+  }
+   }
+const userService = {getSupervisors, getUserSupervisor, getAllUsers, changePassword}
 
 export default userService;
