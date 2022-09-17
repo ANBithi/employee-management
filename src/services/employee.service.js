@@ -178,6 +178,15 @@ async function getProfileInfo() {
 		return await response.json();
 		}    
 }
+async function remove (id , repoType) {
+	let response = await fetch(`http://localhost:5000/api/employee/remove?id=${id}&repoType=${repoType}`, {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+	});
+	if (response.ok) {
+		return await response.json();
+	}
+}
 const employeeService = {
 	updatePersonalInfo,
 	addContact,
@@ -191,7 +200,8 @@ const employeeService = {
 		getProfileInfo,
 		getEmployeeContact,
 		getEmployeeAddress,
-		addAddress
+		addAddress,
+		remove
 };
 
 export default employeeService;

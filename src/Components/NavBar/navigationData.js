@@ -12,10 +12,10 @@ const DATA = [
 				label: "Leave Application",
 				link: "/leave-application",
 			},
-			{
-				label: "Leave Decline",
-				link: "/leave-decline",
-			},
+			// {
+			// 	label: "Leave Decline",
+			// 	link: "/leave-decline",
+			// },
             {
                 label: "Leave Cancel",
 				link: "/leave-cancel",

@@ -24,7 +24,6 @@ const Professional = () => {
 	const fetchData = () => {
 		employeeService.getProfQualification().then((d) => {
 			if (d.response) {
-				console.log(d.profs);
 				setUserProfQualification(d.profs);
 			}
 		});
@@ -64,7 +63,6 @@ const Professional = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Refresh</Button>
 					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 
@@ -103,6 +101,7 @@ const Professional = () => {
 					isOpen={isOpen}
 					onClose={onClose}
 					prof={currentProf}
+					onSuccess = {fetchData}
 				/>
 		</Flex>
 	);

@@ -12,10 +12,23 @@ import {
 	HStack,
 	Text,
 } from "@chakra-ui/react";
+import employeeService from "../../../services/employee.service";
 
-const ProfModal = ({ isOpen, onClose, prof }) => {
+const ProfModal = ({ isOpen, onClose, prof, onSuccess}) => {
+
+
+	const onDeleteClick = () => {
+		employeeService.remove(prof.id, "prof").then(d=>{
+			if(d){
+				if(onSuccess!== undefined){
+					onSuccess();
+				}
+				onClose();
+			}
+		})
+	}
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={onClose} size="md">
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>Professional Qualification</ModalHeader>
@@ -59,7 +72,9 @@ const ProfModal = ({ isOpen, onClose, prof }) => {
 						</>
 					)}
                 </ModalBody>
-				<ModalFooter pr="12px"></ModalFooter>
+				<ModalFooter pr="5%">
+					<Button colorScheme="red" onClick={onDeleteClick}>Delete</Button>
+				</ModalFooter>
 			</ModalContent>
 		</Modal>
 	);

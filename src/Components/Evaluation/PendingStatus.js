@@ -1,6 +1,9 @@
+import {Flex, Text, VStack, Grid, GridItem, HStack, Input, Select, Button, useToast, Divider} from "@chakra-ui/react";
 const PendingStatus = () => {
     return (
-        <div>Pending Status</div>
+        <Flex layerStyle="pageStyle">
+            PendingStatus
+    </Flex>
     )
 }
 export default PendingStatus;

@@ -101,13 +101,13 @@ export default function Layout() {
 									Settings
 								</Link>
 							</MenuItem>
-							{userData?.role === "employee" && (
+							{userData?.role === "admin" && (
 								<MenuItem>
 									<Link
-										to="/admin-panel"
+										to="/administration"
 										style={{ width: "100%" }}
 									>
-										Admin Panel
+										Administration
 									</Link>
 								</MenuItem>
 							)}

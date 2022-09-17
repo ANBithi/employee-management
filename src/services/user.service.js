@@ -11,7 +11,7 @@ async function getSupervisors() {
 		return JsonResponse;
 	}
 }
-async function getSupervisorById() {
+async function getUserSupervisor() {
     let user = getCurrentUser();
     let response = await fetch(`http://localhost:5000/api/user/getSupervisorById?superId=${user.reportsTo}`, {
 		method: "GET",
@@ -22,6 +22,6 @@ async function getSupervisorById() {
 	}
 }
 
-const userService = {getSupervisors, getSupervisorById}
+const userService = {getSupervisors, getUserSupervisor}
 
 export default userService;

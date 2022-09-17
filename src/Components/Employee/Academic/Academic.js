@@ -66,7 +66,6 @@ const Academic = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Refresh</Button>
 					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 				{userAcademics?.length > 0 && (
@@ -101,6 +100,7 @@ const Academic = () => {
 					isOpen={isOpen}
 					onClose={onClose}
 					academic={currentAcademic}
+					onSuccess = {fetchData}
 				/>
 			</Flex>
 		</Flex>

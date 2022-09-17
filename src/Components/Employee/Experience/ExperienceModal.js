@@ -12,10 +12,22 @@ import {
 	HStack,
 	Text,
 } from "@chakra-ui/react";
+import employeeService from "../../../services/employee.service";
 
-const ExperienceModal = ({ isOpen, onClose, experience }) => {
+const ExperienceModal = ({ isOpen, onClose, experience, onSuccess }) => {
+
+	const onDeleteClick = () => {
+		employeeService.remove(experience.id, "experience").then(d=>{
+			if(d){
+				if(onSuccess!== undefined){
+					onSuccess();
+				}
+				onClose();
+			}
+		})
+	}
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={onClose} size="md">
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>Experience Details</ModalHeader>
@@ -68,7 +80,9 @@ const ExperienceModal = ({ isOpen, onClose, experience }) => {
 								<Text>{experience.remarks}</Text>
 							</HStack>
 				</ModalBody>
-				<ModalFooter pr="12px"></ModalFooter>
+				<ModalFooter pr="5%">
+					<Button colorScheme="red" onClick={onDeleteClick}>Delete</Button>
+				</ModalFooter>
 			</ModalContent>
 		</Modal>
 	);

@@ -18,11 +18,9 @@ const Finance = () => {
         workBookService.getTotalHours(belongsTo).then((d)=>{
                 setTotalHours(d);
         })
-		userService.getSupervisorById().then(d=>{
-			console.log(d);
-		})
 		financeService.getFinanceMonthly(belongsTo).then(d=>{
 			if(d.responseStatus === true) {
+				console.log(d.response);
 				setMonthlyFinance(d.response);
 			}
 			else {

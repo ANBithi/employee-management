@@ -36,10 +36,8 @@ const ManageProfile = () => {
 				/>
 				<HStack layerStyle="pageButtonStyle">
 					<Button fontWeight="normal" onClick={onSaveClick}>
-						Save
+						Change Password
 					</Button>
-					<Button fontWeight="normal">Remove</Button>
-					<Button fontWeight="normal">Refresh</Button>
 				</HStack>
 			</Flex>
 		</Flex>

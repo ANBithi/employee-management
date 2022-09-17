@@ -1,10 +1,10 @@
 import { Flex, Text } from "@chakra-ui/react"
 
-const AdminPanel =()=> 
+const Administration =()=> 
 {
     <Flex layerStyle="pageStyle">
-        <Text>Admin Panel</Text>
+        <Text>Administration</Text>
     </Flex>
 }
 
-export default AdminPanel;
+export default Administration;

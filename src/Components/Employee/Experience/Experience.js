@@ -63,7 +63,6 @@ const Experience = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Refresh</Button>
 					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 				{userExperiences?.length > 0 && (
@@ -97,6 +96,7 @@ const Experience = () => {
 								isOpen={isOpen}
 								onClose={onClose}
 								experience={currentExperience}
+								onSuccess = {fetchData}
 							/>
 						)}
 					</VStack>

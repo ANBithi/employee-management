@@ -40,6 +40,7 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 				<Text w="20%">Employee Name</Text>
 				<Input
 					name="employeeName"
+					readOnly={true}
 					defaultValue={defaultValues?.employeeName}
 					layerStyle="inputStyle"
 					onChange={onManageProfileChange}
@@ -77,6 +78,7 @@ const ManageProfileForm = ({ manageProfileObj, setManageProfileObj }) => {
 				<Text w="20%">Profile Status</Text>
 				<Input
 					name="profileStatus"
+					readOnly={true}
 					defaultValue={defaultValues?.profileStatus}
 					layerStyle="inputStyle"
 					onChange={onManageProfileChange}

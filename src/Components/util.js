@@ -37,3 +37,14 @@ export const getStartDate = (endDate, totalDays) => {
 
         return startDate
 }
+
+export const isNullUndefEmptyStr = (obj) => {
+    debugger;
+    Object.values(obj).every(value => {
+        if (value === null || value === undefined || value === '') {
+          return true;
+        }
+        return false;
+      });
+}
+   
