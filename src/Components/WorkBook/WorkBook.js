@@ -9,7 +9,7 @@ const WorkBook = () => {
 	const toast = useToast();
 
 
-	const fetchData =()=>{
+	const fetchData = ()=>{
 		workBookService.getWorkBookData().then(d => {
 			setWorkBookData(d);
 		})

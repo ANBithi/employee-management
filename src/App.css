@@ -9,3 +9,6 @@
     background: rgb(206,215,227, .1)!important;
     border: 1px solid #afbdce !important;
   }
+  .react-calendar__tile:disabled {
+    background-color: #2795d933;
+}

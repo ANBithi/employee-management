@@ -168,6 +168,17 @@ async function addProfileInfo(profile){
 		return await response.json();
 	}
 }
+async function updateProfileInfo(profile){
+	let request = {...profile, belongsTo : getCurrentUserId()};
+	let response = await fetch("http://localhost:5000/api/employee/UpdateInfo", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(request),
+	});
+	if (response.ok) {
+		return await response.json();
+	}
+}
 async function getProfileInfo() {
 	let belongsTo = getCurrentUserId();
 	let response =  await fetch(`http://localhost:5000/api/employee/getInfo?belongsTo=${belongsTo}`,{
@@ -201,7 +212,8 @@ const employeeService = {
 		getEmployeeContact,
 		getEmployeeAddress,
 		addAddress,
-		remove
+		remove,
+		updateProfileInfo
 };
 
 export default employeeService;

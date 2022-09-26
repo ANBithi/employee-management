@@ -1,4 +1,4 @@
-import { Button, Flex, List, ListItem, ListIcon, Text, VStack, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, List, ListItem, ListIcon, Text, VStack, Grid, GridItem, useDisclosure, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { CheckCircleIcon, SettingsIcon, WarningIcon } from '@chakra-ui/icons'
 import resignService from "../../services/resign.service";
@@ -12,6 +12,7 @@ const Resign = () => {
 	const [resignRequests, setResignRequests] = useState([]);
 	const [currentResign,setCurrentResign] = useState();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const toast = useToast();
 
 const fetchAllRequests = () => {
 	resignService.getAllRequests().then(d=>{
@@ -41,7 +42,18 @@ const fetchUserRequest = () => {
 		setResignObj(newObj);
 		resignService.applyResign(newObj).then(d=>{
 			if(d){
-				//console.log(d);
+				toast({
+					containerStyle: {
+						fontSize: "14px",
+						fontWeight: "normal",
+					},
+					title: d.message,
+					position: "bottom-right",
+					variant: "subtle",
+					status: "success",
+					duration: 1000,
+					isClosable: true,
+				});
 			}
 		})
 	};

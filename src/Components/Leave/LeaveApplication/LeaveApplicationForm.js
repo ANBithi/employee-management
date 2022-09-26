@@ -62,7 +62,6 @@ const LeaveApplicationForm = ({
 
 	const onDateChange = (e) => {
 		let { value, name } = e.target;
-
 		let date = { ...dateData, [name]: value };
 		let selDate = [];
 		if(date.startDate)
@@ -123,11 +122,11 @@ const LeaveApplicationForm = ({
 					name="leaveType"
 					w="70%"
 					onChange={onLeaveApplicationChange}
+					placeholder = "Select a leave type"
 				>
 					{LEAVE_TYPE.map((option, index) => {
-						let selected = true;
 						return (
-							<option key={index} value={option.value} selected = {selected}>
+							<option key={index} value={option.value}>
 								{option.label}
 							</option>
 						);
@@ -151,6 +150,7 @@ const LeaveApplicationForm = ({
 				<Input
 					name="totalDays"
 					value={dateData?.totalDays}
+					readOnly = "true"
 					layerStyle="inputStyle"
 					onChange={onDateChange}
 				/>
@@ -210,6 +210,7 @@ const LeaveApplicationForm = ({
 					name="supervisor"
 					w="70%"
 					onChange={onLeaveApplicationChange}
+					placeholder = "Select a supervisor"
 				>
 					{supervisors?.map((supervisor, i) => {
 						return (

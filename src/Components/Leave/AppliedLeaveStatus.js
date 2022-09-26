@@ -1,18 +1,18 @@
 import { Flex, Grid, GridItem, Text, VStack } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import leaveService from "../../services/leave.service";
+import DataFetcher from "../DataFetcher";
 import { APPLIED_LEAVE_COLS } from "./leaveData";
 
 const AppliedLeaveStatus = () => {
 	const [leaveStatusData, setLeaveStatusData] = useState();
-	useEffect(() => {
-		leaveService.getAppliedLeaveStatus().then((data) => {
-			console.log(data);
-			setLeaveStatusData(data);
-		});
-	}, []);
+	const fetchData = async () => {
+		let data = await leaveService.getAppliedLeaveStatus();
+		setLeaveStatusData(data);
+	}
 	return (
-		<Flex layerStyle="pageStyle">
+		<DataFetcher onDataFetched={fetchData} isEmpty={leaveStatusData === undefined || leaveStatusData?.length === 0}>
+			<Flex layerStyle="pageStyle">
 			<VStack w="full" align="flex-start">
 				<Text layerStyle="sectionHeaderStyle">
 					Applied Leave Status
@@ -135,6 +135,7 @@ const AppliedLeaveStatus = () => {
 				</Grid>
 			</VStack>
 		</Flex>
+		</DataFetcher>
 	);
 };
 export default AppliedLeaveStatus;

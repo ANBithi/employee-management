@@ -1,7 +1,7 @@
 import moment from "moment-business-days";
 moment.updateLocale('us', {
-    workingWeekdays: [1, 2, 3, 4, 5]
- });
+  workingWeekdays: [1, 2, 3, 4, 5],
+});
 export const getTotalDays = (endDate, startDate) => {
     let days = moment(endDate).businessDiff(moment(startDate)) + 1;
 	return days

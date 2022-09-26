@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import leaveService from "../../services/leave.service";
+import DataFetcher from "../DataFetcher";
 import { PENDING_COLS } from "./leaveData";
 import PendingModal from "./PendingModal";
 
@@ -17,17 +18,13 @@ const PendingLeaveRequestStatus = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 
-	const fetchData = () =>{
-		leaveService.getPendingLeaveRequest(true).then((data) => {
-			setLeavePending(data);
-		});
+	const fetchData = async () =>{
+		let data = await leaveService.getPendingLeaveRequest(true);
+		setLeavePending(data);
 	}
-
-	useEffect(() => {
-		fetchData();
-	}, []);
 	return (
-		<Flex layerStyle="pageStyle">
+		<DataFetcher onDataFetched={fetchData} isEmpty={leavePending === undefined || leavePending?.length === 0}>
+			<Flex layerStyle="pageStyle">
 			<VStack w="full" align="flex-start">
 				<Text layerStyle="sectionHeaderStyle">
 					Pending Leave Request Status
@@ -157,6 +154,7 @@ const PendingLeaveRequestStatus = () => {
 				/>
 			</VStack>
 		</Flex>
+		</DataFetcher>
 	);
 };
 export default PendingLeaveRequestStatus;

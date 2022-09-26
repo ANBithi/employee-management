@@ -50,8 +50,6 @@ const LeaveApplication = () => {
 					<Button fontWeight="normal" onClick={onSaveClick}>
 						Save
 					</Button>
-					<Button fontWeight="normal">Refresh</Button>
-					<Button fontWeight="normal">Delete</Button>
 				</HStack>
 			</Flex>
 		</Flex>

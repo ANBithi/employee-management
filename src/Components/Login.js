@@ -91,7 +91,7 @@ const Login = () => {
 						></Input>
 					</FormControl>
 				</Flex>
-				<Flex
+				{/* <Flex
 					w="60%"
 					layerStyle="flexMarginStyle"
 					textStyle="smallAndBoldStyle"
@@ -100,7 +100,7 @@ const Login = () => {
 					<Link mr="2%">
 						Forgot password
 					</Link>
-				</Flex>
+				</Flex> */}
 				<Button
 					type="submit"
 					layerStyle="customButton"

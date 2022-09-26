@@ -39,6 +39,7 @@ const PersonalInfo = () => {
 
 	useEffect(()=>{
 		employeeService.getProfileInfo().then((data)=>{
+			debugger;
 			if(data.response)
 			{
 				setPersonalInfoDef(data.profileInfo);
@@ -151,6 +152,51 @@ const PersonalInfo = () => {
 		let value = e.target.value;
 		setRemarks((prevRem) => (prevRem = value));
 	};
+
+	const onUpdateClick = () => {
+		let updatedUser = {
+			pin,
+            salutation,
+			firstName,
+			lastName,
+			fatherName,
+			motherName,
+            gender,
+            birthDate,
+            birthPlace,
+            bloodGroup,
+            nationality,
+            religion,
+            maritalStatus,
+            numberOfSons,
+            numberOfDaughters,
+            cardNo,
+            tinNo,
+            passportNo,
+            drivingLicense,
+            nidNumber, extraCurriculum, remarks
+		};
+
+		if(maritalStatus === MARITAL_STATUS_OPTIONS[1].value){
+			updatedUser = {...updatedUser, spouseName};
+		}
+	
+       employeeService.updateProfileInfo(updatedUser).then((d)=>{
+		if(d){
+			toast({
+                containerStyle: {
+                    fontSize: "14px",
+                    fontWeight: "normal"},
+                title: 'Profile Updated.',
+                position: "bottom-right",
+                variant : "subtle",
+                status: 'success',
+                duration: 1000,
+                isClosable: true,
+              })
+		}
+	   })
+	}
 
     const onCreateClick =()=>{
         let updatedUser = {
@@ -582,10 +628,10 @@ const PersonalInfo = () => {
 				</HStack>
                </VStack>
                <HStack layerStyle="pageButtonStyle">
-				{(isAllDataAvailable) ? 
+				{(!isAllDataAvailable) ? 
                 <Button fontWeight="normal" onClick={onCreateClick}>Create</Button>
 				:
-				<Button fontWeight="normal" onClick={onCreateClick}>Update</Button>}
+				<Button fontWeight="normal" onClick={onUpdateClick}>Update</Button>}
                </HStack>
 			</VStack>
 		</Flex>
